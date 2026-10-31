@@ -1,0 +1,3618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guitar Mastery Bootcamp</title>
+<meta name="description" content="An accelerated, retrieval-based guitar training system for theory, fretboard, ear, rhythm, technique and style.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Cpath d='M8 24 L8 8 L20 8 M8 16 L18 16' stroke='%23fff' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GUITAR MASTERY BOOTCAMP — DESIGN SYSTEM
+   Pure black / white / gray. No color, no gradients.
+   Light mode (white surface, black ink) is default per spec.
+   Dark mode is a full inversion, toggleable.
+============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root, [data-theme="light"]{
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --surface-2:#f4f4f4;
+  --surface-3:#eaeaea;
+  --raised:#ffffff;
+  --ink:#0a0a0a;
+  --ink-2:#3d3d3d;
+  --muted:#6b6b6b;
+  --faint:#9c9c9c;
+  --line:#0a0a0a;
+  --line-soft:#d6d6d6;
+  --line-faint:#e6e6e6;
+  --inverse-bg:#0a0a0a;
+  --inverse-ink:#ffffff;
+  --fill:#0a0a0a;
+  --fill-ink:#ffffff;
+  --shadow: 0 1px 0 rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.10);
+  --scrim: rgba(255,255,255,0.86);
+}
+
+[data-theme="dark"]{
+  --bg:#050505;
+  --surface:#0a0a0a;
+  --surface-2:#131313;
+  --surface-3:#1c1c1c;
+  --raised:#111111;
+  --ink:#f5f5f5;
+  --ink-2:#c9c9c9;
+  --muted:#8f8f8f;
+  --faint:#5c5c5c;
+  --line:#f5f5f5;
+  --line-soft:#333333;
+  --line-faint:#222222;
+  --inverse-bg:#f5f5f5;
+  --inverse-ink:#0a0a0a;
+  --fill:#f5f5f5;
+  --fill-ink:#0a0a0a;
+  --shadow: 0 1px 0 rgba(255,255,255,0.05);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+  --scrim: rgba(5,5,5,0.88);
+}
+
+:root{
+  --font-display:'Switzer','General Sans',-apple-system,sans-serif;
+  --font-body:'General Sans','Switzer',-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono','SFMono-Regular',Consolas,monospace;
+
+  --text-xs: clamp(0.7rem, 0.68rem + 0.1vw, 0.78rem);
+  --text-sm: clamp(0.82rem, 0.8rem + 0.15vw, 0.9rem);
+  --text-base: clamp(0.95rem, 0.9rem + 0.2vw, 1.02rem);
+  --text-lg: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  --text-xl: clamp(1.4rem, 1.15rem + 1.1vw, 2rem);
+  --text-2xl: clamp(1.9rem, 1.4rem + 2vw, 3rem);
+
+  --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem; --space-4:1rem;
+  --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem;
+  --space-12:3rem; --space-16:4rem; --space-20:5rem;
+
+  --radius-sm:2px; --radius-md:4px; --radius-lg:8px; --radius-xl:14px; --radius-full:999px;
+  --dur:150ms; --ease:cubic-bezier(.2,.8,.2,1);
+  --content-max: 1180px;
+}
+
+html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{
+  min-height:100dvh;
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  line-height:1.5;
+  color:var(--ink);
+  background:var(--bg);
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-0.01em;line-height:1.1;text-wrap:balance;font-weight:700;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{cursor:pointer;background:none;border:none;}
+a{color:inherit;}
+ul,ol{list-style:none;}
+svg{display:block;flex-shrink:0;}
+::selection{background:var(--ink);color:var(--bg);}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:var(--radius-sm);}
+[data-theme="dark"] :focus-visible{outline-color:var(--ink);}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}
+}
+
+/* ---------- layout shell ---------- */
+#app{display:flex;flex-direction:column;min-height:100dvh;}
+
+.app-header{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px) saturate(1.1);}
+.topbar{
+  display:flex;align-items:center;gap:var(--space-4);
+  padding:var(--space-3) var(--space-5);
+  border-bottom:1px solid var(--line-faint);
+}
+.brand{display:flex;align-items:center;gap:var(--space-2);font-family:var(--font-display);font-weight:800;font-size:var(--text-base);letter-spacing:-.01em;white-space:nowrap;}
+.brand .logo{width:26px;height:26px;color:var(--ink);}
+.brand .brand-sub{display:none;}
+@media (min-width:720px){ .brand .brand-sub{display:inline;color:var(--muted);font-weight:500;font-size:var(--text-xs);margin-left:2px;} }
+
+.topbar-stats{display:flex;align-items:center;gap:var(--space-3);margin-left:auto;font-family:var(--font-mono);}
+.stat-chip{display:flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line-soft);border-radius:var(--radius-full);font-size:var(--text-xs);white-space:nowrap;}
+.stat-chip b{font-weight:700;color:var(--ink);}
+.stat-chip .lbl{color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:0.62rem;}
+
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line-soft);border-radius:var(--radius-md);transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);}
+.icon-btn:hover{background:var(--surface-2);border-color:var(--line);}
+.icon-btn svg{width:16px;height:16px;}
+
+.navbar{
+  display:flex;gap:2px;overflow-x:auto;
+  padding:0 var(--space-5);
+  border-bottom:1px solid var(--line-faint);
+  scrollbar-width:none;
+}
+.navbar::-webkit-scrollbar{display:none;}
+.nav-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:var(--space-3) var(--space-3);
+  font-size:var(--text-sm);font-weight:600;color:var(--muted);
+  border-bottom:2px solid transparent;white-space:nowrap;
+  transition:color var(--dur) var(--ease);
+}
+.nav-btn svg{width:15px;height:15px;opacity:.75;}
+.nav-btn:hover{color:var(--ink);}
+.nav-btn.active{color:var(--ink);border-bottom-color:var(--ink);}
+.nav-btn.active svg{opacity:1;}
+
+main{flex:1;width:100%;max-width:var(--content-max);margin:0 auto;padding:var(--space-6) var(--space-5) var(--space-20);}
+@media (max-width:640px){ main{padding:var(--space-4) var(--space-4) var(--space-16);} }
+@media (max-width:600px){
+  .topbar{padding:var(--space-3) var(--space-4);gap:var(--space-2);}
+  .topbar-stats{gap:5px;}
+  .stat-chip{padding:4px 7px;gap:3px;font-size:0.62rem;}
+  .stat-chip .lbl{display:none;}
+  .icon-btn{width:30px;height:30px;flex-shrink:0;}
+  .brand span{font-size:var(--text-sm);}
+  .brand .logo{width:22px;height:22px;}
+}
+@media (max-width:380px){
+  .topbar{gap:6px;}
+  .stat-chip{padding:4px 6px;}
+}
+
+.view-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);}
+.view-title{font-size:var(--text-xl);}
+.view-sub{color:var(--muted);font-size:var(--text-sm);max-width:60ch;}
+.eyebrow{font-family:var(--font-mono);text-transform:uppercase;font-size:0.68rem;letter-spacing:.12em;color:var(--muted);margin-bottom:6px;display:block;}
+
+/* ---------- primitives ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border-radius:var(--radius-md);
+  font-size:var(--text-sm);font-weight:600;letter-spacing:0.01em;
+  border:1px solid var(--line);
+  transition:transform var(--dur) var(--ease),background var(--dur) var(--ease),opacity var(--dur) var(--ease);
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--fill);color:var(--fill-ink);}
+.btn-primary:hover{opacity:.85;}
+.btn-ghost{background:transparent;color:var(--ink);}
+.btn-ghost:hover{background:var(--surface-2);}
+.btn-sm{padding:7px 13px;font-size:var(--text-xs);}
+.btn:disabled{opacity:.35;cursor:not-allowed;}
+.btn-block{width:100%;}
+
+.card{
+  border:1px solid var(--line-soft);
+  border-radius:var(--radius-lg);
+  background:var(--surface);
+  padding:var(--space-5);
+}
+.card-tight{padding:var(--space-4);}
+
+.grid{display:grid;gap:var(--space-4);}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+@media (max-width:900px){ .grid-4{grid-template-columns:repeat(2,1fr);} .grid-3{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:560px){ .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;} }
+
+.tag{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border:1px solid var(--line-soft);border-radius:var(--radius-full);font-size:var(--text-xs);color:var(--muted);font-weight:600;}
+.tag.on{border-color:var(--line);color:var(--ink);background:var(--surface-2);}
+
+.progress-track{height:6px;border-radius:var(--radius-full);background:var(--surface-3);overflow:hidden;}
+.progress-fill{height:100%;background:var(--fill);border-radius:var(--radius-full);transition:width .25s var(--ease);}
+
+/* module tiles on dashboard */
+.mod-tile{
+  display:flex;flex-direction:column;gap:var(--space-3);
+  padding:var(--space-5);border:1px solid var(--line-soft);border-radius:var(--radius-lg);
+  text-align:left;transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease);
+  cursor:pointer;position:relative;overflow:hidden;background:var(--surface);
+}
+.mod-tile:hover{border-color:var(--line);background:var(--surface-2);}
+.mod-tile .mod-icon{width:30px;height:30px;}
+.mod-tile h3{font-size:var(--text-base);}
+.mod-tile p{font-size:var(--text-xs);color:var(--muted);line-height:1.45;}
+.mod-tile .mod-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;font-family:var(--font-mono);font-size:0.68rem;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;}
+
+/* ---------- drill runner ---------- */
+.drill-shell{max-width:720px;margin:0 auto;}
+.drill-topline{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-5);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted);}
+.drill-topline .combo{font-weight:700;color:var(--ink);}
+.drill-card{
+  border:1px solid var(--line);border-radius:var(--radius-xl);
+  padding:var(--space-8) var(--space-6);
+  min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);
+  text-align:center;background:var(--surface);position:relative;
+}
+.drill-topic{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;font-size:0.66rem;color:var(--muted);position:absolute;top:16px;left:20px;}
+.drill-due{position:absolute;top:16px;right:20px;font-size:0.66rem;font-family:var(--font-mono);color:var(--faint);}
+.drill-prompt{font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);}
+.drill-prompt.mono{font-family:var(--font-mono);}
+.drill-hint{color:var(--muted);font-size:var(--text-sm);}
+
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3);margin-top:var(--space-5);width:100%;max-width:640px;margin-inline:auto;}
+@media (max-width:560px){ .choices{grid-template-columns:1fr;} }
+.choice-btn{
+  padding:14px 16px;border:1px solid var(--line-soft);border-radius:var(--radius-md);
+  font-size:var(--text-sm);font-weight:600;text-align:left;display:flex;align-items:center;gap:10px;
+  background:var(--surface);transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease);
+}
+.choice-btn .k{font-family:var(--font-mono);font-size:0.68rem;color:var(--faint);border:1px solid var(--line-faint);border-radius:4px;width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.choice-btn:hover:not(:disabled){border-color:var(--line);}
+.choice-btn.correct{background:var(--fill);color:var(--fill-ink);border-color:var(--fill);}
+.choice-btn.wrong{border-color:var(--line);text-decoration:line-through;opacity:.55;}
+.choice-btn.reveal-correct{border-color:var(--line);border-width:2px;font-weight:800;}
+.choice-btn:disabled{cursor:default;}
+
+.type-row{display:flex;gap:var(--space-2);margin-top:var(--space-5);width:100%;max-width:420px;margin-inline:auto;}
+.type-input{
+  flex:1;padding:12px 14px;border:1px solid var(--line-soft);border-radius:var(--radius-md);
+  background:var(--surface);font-size:var(--text-base);font-family:var(--font-mono);text-align:center;
+}
+.type-input:focus{border-color:var(--line);}
+.type-input.correct{border-color:var(--line);background:var(--surface-2);}
+.type-input.wrong{border-color:var(--line);text-decoration:line-through;}
+
+.feedback-banner{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);
+  margin-top:var(--space-4);padding:var(--space-3) var(--space-4);border:1px solid var(--line);border-radius:var(--radius-md);
+  font-size:var(--text-sm);width:100%;max-width:640px;margin-inline:auto;
+}
+.feedback-banner.ok{background:var(--fill);color:var(--fill-ink);border-color:var(--fill);}
+.feedback-banner b{font-weight:800;}
+.feedback-banner .fb-answer{font-family:var(--font-mono);}
+
+.drill-actions{display:flex;justify-content:center;gap:var(--space-3);margin-top:var(--space-6);}
+
+/* fretboard */
+.fretboard-wrap{overflow-x:auto;padding-bottom:6px;}
+.fretboard{position:relative;display:flex;flex-direction:column;min-width:640px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface);}
+.fret-row{display:flex;position:relative;}
+.fret-cell{
+  flex:1;height:44px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-faint);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.fret-cell:first-child{border-right:2px solid var(--line);background:var(--surface-2);flex:0 0 44px;}
+.fret-cell:last-child{border-right:none;}
+.fret-row:last-child .fret-cell{border-bottom:none;}
+.fret-cell .string-line{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line-soft);z-index:0;}
+.fret-marker-row{display:flex;}
+.fret-marker-cell{flex:1;flex:0 0 44px;}
+.fret-num{flex:1;text-align:center;font-family:var(--font-mono);font-size:0.65rem;color:var(--faint);padding:4px 0;}
+.fret-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--line-faint);top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;}
+.note-dot{
+  width:28px;height:28px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;font-family:var(--font-mono);
+  background:var(--surface);z-index:1;cursor:pointer;transition:background var(--dur),color var(--dur);
+}
+.note-dot.filled{background:var(--fill);color:var(--fill-ink);}
+.note-dot.target{border-width:2px;}
+.note-dot:hover{background:var(--surface-3);}
+.note-dot.hit{background:var(--fill);color:var(--fill-ink);}
+.note-dot.miss{border-style:dashed;opacity:.5;}
+
+/* metronome */
+.metronome{display:flex;flex-direction:column;align-items:center;gap:var(--space-4);}
+.metro-dial{width:96px;height:96px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:var(--text-lg);font-weight:800;position:relative;}
+.metro-dial.beat::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--line);animation:pulse .12s var(--ease);}
+@keyframes pulse{from{opacity:1;transform:scale(1);}to{opacity:0;transform:scale(1.25);}}
+.beat-lights{display:flex;gap:8px;}
+.beat-light{width:10px;height:10px;border-radius:50%;border:1px solid var(--line-soft);}
+.beat-light.on{background:var(--fill);border-color:var(--fill);}
+.beat-light.accent{border-width:2px;}
+.bpm-row{display:flex;align-items:center;gap:var(--space-3);}
+.bpm-row .bpm-num{font-family:var(--font-mono);font-size:var(--text-xl);font-weight:800;min-width:64px;text-align:center;}
+.bpm-btn{width:34px;height:34px;border:1px solid var(--line-soft);border-radius:50%;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.bpm-btn:hover{border-color:var(--line);}
+.tap-grid{display:flex;gap:4px;flex-wrap:wrap;}
+.tap-cell{width:34px;height:34px;border:1px solid var(--line-soft);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-family:var(--font-mono);}
+.tap-cell.active{border-color:var(--line);border-width:2px;font-weight:800;}
+.tap-cell.hit{background:var(--fill);color:var(--fill-ink);}
+
+/* modal / sheet */
+.overlay{position:fixed;inset:0;background:var(--scrim);backdrop-filter:blur(6px);z-index:80;display:flex;align-items:flex-end;justify-content:center;}
+@media (min-width:720px){ .overlay{align-items:center;} }
+.sheet{
+  background:var(--surface);border:1px solid var(--line);border-top:1px solid var(--line);
+  border-radius:var(--radius-xl) var(--radius-xl) 0 0;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;
+  padding:var(--space-6);box-shadow:var(--shadow-lg);
+}
+@media (min-width:720px){ .sheet{border-radius:var(--radius-xl);max-height:80vh;} }
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5);}
+
+table.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+table.data-table th,table.data-table td{border:1px solid var(--line-faint);padding:8px 10px;text-align:left;}
+table.data-table th{background:var(--surface-2);font-family:var(--font-mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+
+.stat-block{border:1px solid var(--line-soft);border-radius:var(--radius-lg);padding:var(--space-4);}
+.stat-block .num{font-family:var(--font-mono);font-size:var(--text-xl);font-weight:800;}
+.stat-block .lbl{color:var(--muted);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;}
+
+.weak-row{display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-bottom:1px solid var(--line-faint);}
+.weak-row:last-child{border-bottom:none;}
+.weak-bar{width:100px;height:5px;background:var(--surface-3);border-radius:99px;overflow:hidden;}
+.weak-bar span{display:block;height:100%;background:var(--fill);}
+
+.empty{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding:var(--space-16) var(--space-6);text-align:center;color:var(--muted);}
+
+kbd{font-family:var(--font-mono);font-size:0.68rem;border:1px solid var(--line-soft);border-radius:4px;padding:1px 6px;}
+
+.toast-wrap{position:fixed;bottom:var(--space-6);left:50%;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:8px;align-items:center;}
+.toast{background:var(--inverse-bg);color:var(--inverse-ink);padding:10px 18px;border-radius:var(--radius-full);font-size:var(--text-sm);font-weight:600;box-shadow:var(--shadow-lg);animation:toastIn .2s var(--ease);}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.checklist{display:flex;flex-direction:column;gap:2px;}
+.check-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line-faint);border-radius:var(--radius-md);}
+.check-row.done{background:var(--surface-2);}
+.check-row .cbox{width:18px;height:18px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.check-row.done .cbox{background:var(--fill);color:var(--fill-ink);}
+
+.route-fade{animation:routeFade .18s var(--ease);}
+@keyframes routeFade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+.segmented{display:inline-flex;border:1px solid var(--line-soft);border-radius:var(--radius-full);padding:2px;}
+.segmented button{padding:6px 14px;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:600;color:var(--muted);}
+.segmented button.active{background:var(--fill);color:var(--fill-ink);}
+
+.pool-toggle{display:flex;flex-wrap:wrap;gap:6px;}
+
+.rank-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid var(--line);border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:700;font-family:var(--font-mono);}
+
+hr.div{border:none;border-top:1px solid var(--line-faint);margin:var(--space-6) 0;}
+
+.mini-note{font-size:var(--text-xs);color:var(--faint);}
+#main:focus{outline:none}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="app-header">
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="6" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M9 24 L9 9 L20 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square"/>
+        <path d="M9 16.5 L18 16.5" stroke="currentColor" stroke-width="2"/>
+        <circle cx="23" cy="23" r="1.6" fill="currentColor"/>
+      </svg>
+      <span>Guitar Mastery <span class="brand-sub">Bootcamp</span></span>
+    </div>
+    <div class="topbar-stats" role="status" aria-label="Session stats">
+      <span class="stat-chip" title="Experience points"><span class="lbl">XP</span><b id="stat-xp">0</b></span>
+      <span class="stat-chip" title="Current combo"><span class="lbl">Combo</span><b id="stat-combo">0</b></span>
+      <span class="stat-chip" title="Mastery rank"><span class="lbl">Rank</span><b id="stat-rank">Novice</b></span>
+    </div>
+    <button class="icon-btn" id="btn-help" aria-label="How this works">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.9 2.4c-.9.6-1.4 1.1-1.4 2.1" stroke-linecap="round"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>
+    </button>
+    <button class="icon-btn" id="theme-toggle" aria-label="Switch to dark mode"></button>
+  </header>
+
+  <nav class="navbar" id="navbar" aria-label="Modules"></nav>
+  </div>
+
+  <main id="main" tabindex="-1"></main>
+
+  <div id="overlay-root"></div>
+  <div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
+</div>
+<script>
+// =====================================================================
+// MUSIC THEORY DATA MODEL
+// =====================================================================
+const PC_SHARP = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const PC_FLAT  = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+const ENHARMONIC = { 'C#':'Db','Db':'C#','D#':'Eb','Eb':'D#','F#':'Gb','Gb':'F#','G#':'Ab','Ab':'G#','A#':'Bb','Bb':'A#' };
+function pcName(pc, useFlat){ return (useFlat?PC_FLAT:PC_SHARP)[((pc%12)+12)%12]; }
+function noteNameToPc(name){
+  const idx = PC_SHARP.indexOf(name); if(idx>=0) return idx;
+  const idx2 = PC_FLAT.indexOf(name); if(idx2>=0) return idx2;
+  return null;
+}
+function midiFromPcOctave(pc, octave){ return pc + (octave+1)*12; }
+function freqFromMidi(m){ return 440 * Math.pow(2, (m-69)/12); }
+
+const INTERVALS = [
+  {semi:0,  name:'Unison',            short:'P1'},
+  {semi:1,  name:'Minor 2nd',         short:'m2'},
+  {semi:2,  name:'Major 2nd',         short:'M2'},
+  {semi:3,  name:'Minor 3rd',         short:'m3'},
+  {semi:4,  name:'Major 3rd',         short:'M3'},
+  {semi:5,  name:'Perfect 4th',       short:'P4'},
+  {semi:6,  name:'Tritone',           short:'TT'},
+  {semi:7,  name:'Perfect 5th',       short:'P5'},
+  {semi:8,  name:'Minor 6th',         short:'m6'},
+  {semi:9,  name:'Major 6th',         short:'M6'},
+  {semi:10, name:'Minor 7th',         short:'m7'},
+  {semi:11, name:'Major 7th',         short:'M7'},
+  {semi:12, name:'Octave',            short:'P8'},
+];
+function intervalBySemi(s){ return INTERVALS[((s%12)+12)%12]; }
+
+const SCALES = [
+  {id:'major',        name:'Major (Ionian)',      formula:[0,2,4,5,7,9,11], family:'diatonic'},
+  {id:'nat_minor',     name:'Natural Minor (Aeolian)', formula:[0,2,3,5,7,8,10], family:'diatonic'},
+  {id:'harm_minor',    name:'Harmonic Minor',      formula:[0,2,3,5,7,8,11], family:'minor-variant'},
+  {id:'mel_minor',     name:'Melodic Minor',       formula:[0,2,3,5,7,9,11], family:'minor-variant'},
+  {id:'maj_pent',      name:'Major Pentatonic',    formula:[0,2,4,7,9],      family:'pentatonic'},
+  {id:'min_pent',      name:'Minor Pentatonic',    formula:[0,3,5,7,10],     family:'pentatonic'},
+  {id:'blues',         name:'Blues Scale',         formula:[0,3,5,6,7,10],   family:'blues'},
+  {id:'dorian',        name:'Dorian',              formula:[0,2,3,5,7,9,10], family:'mode'},
+  {id:'phrygian',      name:'Phrygian',            formula:[0,1,3,5,7,8,10], family:'mode'},
+  {id:'lydian',        name:'Lydian',              formula:[0,2,4,6,7,9,11], family:'mode'},
+  {id:'mixolydian',    name:'Mixolydian',          formula:[0,2,4,5,7,9,10], family:'mode'},
+  {id:'locrian',       name:'Locrian',             formula:[0,1,3,5,6,8,10], family:'mode'},
+  {id:'harm_major',    name:'Harmonic Major',      formula:[0,2,4,5,7,8,11], family:'exotic'},
+  {id:'phryg_dom',     name:'Phrygian Dominant',   formula:[0,1,4,5,7,8,10], family:'exotic'},
+  {id:'hungarian_min', name:'Hungarian Minor',     formula:[0,2,3,6,7,8,11], family:'exotic'},
+  {id:'whole_tone',    name:'Whole Tone',          formula:[0,2,4,6,8,10],   family:'exotic'},
+  {id:'dim_wh',        name:'Diminished (W-H)',    formula:[0,2,3,5,6,8,9,11], family:'exotic'},
+];
+function scaleById(id){ return SCALES.find(s=>s.id===id); }
+function buildScale(rootPc, scaleId){
+  const s = scaleById(scaleId);
+  return s.formula.map(i=>(rootPc+i)%12);
+}
+const MODE_ORDER = ['major','dorian','phrygian','lydian','mixolydian','nat_minor','locrian'];
+const MODE_DISPLAY = {major:'Ionian',dorian:'Dorian',phrygian:'Phrygian',lydian:'Lydian',mixolydian:'Mixolydian',nat_minor:'Aeolian',locrian:'Locrian'};
+
+const SCALE_DEGREE_NAMES = ['Tonic','Supertonic','Mediant','Subdominant','Dominant','Submediant','Leading Tone'];
+const SCALE_DEGREE_NAMES_MIN7 = ['Tonic','Supertonic','Mediant','Subdominant','Dominant','Submediant','Subtonic'];
+
+const CHORD_TYPES = [
+  {id:'maj',   name:'Major triad',        formula:[0,4,7],      symbol:''},
+  {id:'min',   name:'Minor triad',        formula:[0,3,7],      symbol:'m'},
+  {id:'dim',   name:'Diminished triad',   formula:[0,3,6],      symbol:'dim'},
+  {id:'aug',   name:'Augmented triad',    formula:[0,4,8],      symbol:'aug'},
+  {id:'maj7',  name:'Major 7th',          formula:[0,4,7,11],   symbol:'maj7'},
+  {id:'dom7',  name:'Dominant 7th',       formula:[0,4,7,10],   symbol:'7'},
+  {id:'min7',  name:'Minor 7th',          formula:[0,3,7,10],   symbol:'m7'},
+  {id:'m7b5',  name:'Half-diminished 7th',formula:[0,3,6,10],   symbol:'m7b5'},
+  {id:'dim7',  name:'Diminished 7th',     formula:[0,3,6,9],    symbol:'dim7'},
+  {id:'minMaj7',name:'Minor-Major 7th',   formula:[0,3,7,11],   symbol:'m(maj7)'},
+  {id:'maj9',  name:'Major 9th',          formula:[0,4,7,11,14],symbol:'maj9'},
+  {id:'dom9',  name:'Dominant 9th',       formula:[0,4,7,10,14],symbol:'9'},
+  {id:'min9',  name:'Minor 9th',          formula:[0,3,7,10,14],symbol:'m9'},
+];
+function chordTypeById(id){ return CHORD_TYPES.find(c=>c.id===id); }
+function buildChord(rootPc, typeId){
+  const c = chordTypeById(typeId);
+  return c.formula.map(i=>(rootPc+i)%12);
+}
+
+// Diatonic triad/seventh qualities by scale degree (major key)
+const MAJOR_KEY_TRIAD_QUALITY = ['maj','min','min','maj','maj','min','dim'];
+const MAJOR_KEY_SEVENTH_QUALITY = ['maj7','min7','min7','maj7','dom7','min7','m7b5'];
+const MAJOR_KEY_ROMAN = ['I','ii','iii','IV','V','vi','vii°'];
+const MAJOR_KEY_ROMAN7 = ['Imaj7','ii7','iii7','IVmaj7','V7','vi7','viiø7'];
+
+// Natural minor diatonic (relative to minor tonic)
+const NAT_MINOR_TRIAD_QUALITY = ['min','dim','maj','min','min','maj','maj'];
+const NAT_MINOR_ROMAN = ['i','ii°','III','iv','v','VI','VII'];
+// Harmonic minor diatonic (raised 7th) ��� used for functional V and vii°
+const HARM_MINOR_TRIAD_QUALITY = ['min','dim','aug','min','maj','maj','dim'];
+const HARM_MINOR_ROMAN = ['i','ii°','III+','iv','V','VI','vii°'];
+
+const CIRCLE_OF_FIFTHS = [
+  {maj:'C', min:'Am', sharps:0, flats:0},
+  {maj:'G', min:'Em', sharps:1, flats:0},
+  {maj:'D', min:'Bm', sharps:2, flats:0},
+  {maj:'A', min:'F#m', sharps:3, flats:0},
+  {maj:'E', min:'C#m', sharps:4, flats:0},
+  {maj:'B', min:'G#m', sharps:5, flats:0},
+  {maj:'F#/Gb', min:'D#m/Ebm', sharps:6, flats:6},
+  {maj:'Db', min:'Bbm', sharps:0, flats:5},
+  {maj:'Ab', min:'Fm', sharps:0, flats:4},
+  {maj:'Eb', min:'Cm', sharps:0, flats:3},
+  {maj:'Bb', min:'Gm', sharps:0, flats:2},
+  {maj:'F', min:'Dm', sharps:0, flats:1},
+];
+
+// CAGED shape order and which string carries the primary root for the "low" root of each shape
+const CAGED_ORDER = ['C','A','G','E','D'];
+const CAGED_INFO = {
+  C:{rootString:'5th string (A string)', desc:'Open-C-shaped chord form. Root sits on the 5th string.'},
+  A:{rootString:'5th string (A string)', desc:'Open-A-shaped chord form. Root sits on the 5th string, barred shape.'},
+  G:{rootString:'6th string (low E) & 3rd string', desc:'Open-G-shaped chord form. Root doubled on 6th and 3rd strings.'},
+  E:{rootString:'6th string (low E)', desc:'Open-E-shaped chord form. Root sits on the 6th string, classic barre chord.'},
+  D:{rootString:'4th string (D string)', desc:'Open-D-shaped chord form. Root sits on the 4th string.'},
+};
+
+// Standard tuning open string pitch classes, low to high (string 6 = low E ... string 1 = high E)
+const STANDARD_TUNING = [4,9,2,7,11,4]; // E A D G B E
+const STRING_NAMES = ['E (low)','A','D','G','B','E (high)'];
+function noteAtStringFret(stringIdx, fret){ return (STANDARD_TUNING[stringIdx] + fret) % 12; }
+
+const COMMON_PROGRESSIONS = [
+  {id:'I-V-vi-IV', roman:['I','V','vi','IV'], name:'Pop progression'},
+  {id:'ii-V-I',    roman:['ii','V','I'],      name:'Jazz turnaround'},
+  {id:'I-IV-V',    roman:['I','IV','V'],      name:'Blues / rock cadence'},
+  {id:'vi-IV-I-V', roman:['vi','IV','I','V'], name:'Sensitive pop progression'},
+  {id:'I-vi-IV-V', roman:['I','vi','IV','V'], name:'50s progression'},
+  {id:'ii-V-I-vi', roman:['ii','V','I','vi'], name:'Extended turnaround'},
+];
+
+const APP_LAB_TEMPLATES = ['I-V-vi-IV','ii-V-I','I-IV-V','vi-IV-I-V','I-vi-IV-V'];
+
+const GENRE_PHRASE_STUDIES = [
+  {id:'blues-call', title:'Blues Call & Answer', body:'A blues phrase states a short idea over bars 1-2, then answers it with a variation over bars 3-4 — usually built from the minor pentatonic with a blue note (b5) bend.', q:'A 12-bar blues phrase that repeats an idea then varies it is called a...', choices:['Call and response','Sequence','Pedal point','Cadenza'], answer:0},
+  {id:'jazz-enclosure', title:'Jazz Enclosure', body:'An enclosure surrounds a target chord tone by approaching it from both a half-step above and below before landing on it — a core bebop device.', q:'Approaching a target note from a half-step above then below (or vice versa) before landing on it is called a...', choices:['Enclosure','Sequence','Pedal tone','Turnaround'], answer:0},
+  {id:'metal-sequence', title:'Metal Sequential Picking', body:'Metal lead phrases often repeat a short 3-4 note cell and shift it up the scale degree by degree — a "sequence" — combined with strict alternate picking or picked-legato hybrids.', q:'Repeating a short melodic cell and shifting it stepwise through a scale is called a...', choices:['Sequence','Enclosure','Drone','Cadence'], answer:0},
+  {id:'country-chicken', title:'Chicken Pickin\' Snap', body:'A hybrid-picking technique (pick + fingers) that snaps a string against the fretboard for a percussive "cluck," common in country and Americana leads.', q:'The percussive string-snap technique common in country lead playing is called...', choices:['Chicken pickin\'','Sweep picking','Tapping','Palm muting'], answer:0},
+  {id:'fingerstyle-travis', title:'Travis Picking', body:'An alternating-bass fingerstyle pattern where the thumb keeps a steady bass pulse (often alternating between two bass notes) while the fingers pick out a melody on top.', q:'The fingerstyle pattern with a steady alternating thumb bass under a picked melody is called...', choices:['Travis picking','Sweep picking','Campanella','Rasgueado'], answer:0},
+];
+// =====================================================================
+// AUDIO ENGINE — Web Audio synthesis (tones, chords, metronome, mic pitch)
+// =====================================================================
+const Audio_ = (function(){
+  let ctx = null;
+  function ensure(){
+    if(!ctx){
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if(ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  function playTone(freq, {dur=0.55, type='triangle', gain=0.22, when=0, attack=0.01, release=0.18} = {}){
+    const c = ensure();
+    const t0 = c.currentTime + when;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(gain, t0+attack);
+    g.gain.setValueAtTime(gain, t0+dur-release>t0+attack? t0+dur-release : t0+attack+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+    osc.connect(g); g.connect(c.destination);
+    osc.start(t0); osc.stop(t0+dur+0.02);
+    return t0+dur;
+  }
+
+  function playMidi(midi, opts){ return playTone(freqFromMidi(midi), opts); }
+
+  function playChordMidis(midis, {dur=1.1, gain=0.14, when=0, type='triangle'}={}){
+    midis.forEach(m=>playMidi(m, {dur, gain, when, type}));
+  }
+
+  function playArpeggio(midis, {noteDur=0.32, gap=0.16, gain=0.22, type='triangle'}={}){
+    midis.forEach((m,i)=>playMidi(m, {dur:noteDur, gain, when:i*gap, type}));
+    return midis.length*gap + noteDur;
+  }
+
+  function click(accent=false, when=0){
+    const c = ensure();
+    const t0 = c.currentTime + when;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = 'square';
+    osc.frequency.value = accent? 1500 : 1000;
+    g.gain.setValueAtTime(accent?0.28:0.16, t0);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+0.045);
+    osc.connect(g); g.connect(c.destination);
+    osc.start(t0); osc.stop(t0+0.05);
+  }
+
+  function now(){ return ensure().currentTime; }
+
+  // ---- Metronome scheduler (lookahead pattern) ----
+  function makeMetronome(){
+    let bpm = 80, beatsPerBar = 4, running = false, nextTime = 0, current = 0, timer = null;
+    let onBeat = ()=>{};
+    const lookahead = 25, scheduleAhead = 0.12;
+    function scheduler(){
+      const c = ensure();
+      while(nextTime < c.currentTime + scheduleAhead){
+        const accent = current % beatsPerBar === 0;
+        click(accent, nextTime - c.currentTime);
+        const cb = onBeat, beatIdx = current % beatsPerBar, t = nextTime;
+        setTimeout(()=>cb(beatIdx, t), Math.max(0,(nextTime - c.currentTime)*1000));
+        nextTime += 60/bpm;
+        current++;
+      }
+    }
+    return {
+      start(){ if(running) return; running=true; const c=ensure(); nextTime=c.currentTime+0.05; current=0; timer=setInterval(scheduler, lookahead); },
+      stop(){ running=false; if(timer) clearInterval(timer); timer=null; },
+      setBpm(v){ bpm = v; },
+      getBpm(){ return bpm; },
+      setBeatsPerBar(v){ beatsPerBar=v; },
+      isRunning(){ return running; },
+      set onBeat_(fn){ onBeat = fn; },
+      onBeatCb(fn){ onBeat = fn; },
+      nowSec(){ return ensure().currentTime; },
+    };
+  }
+
+  // ---- Simple autocorrelation pitch detector (for sing-and-match) ----
+  function autoCorrelate(buf, sampleRate){
+    const SIZE = buf.length;
+    let rms = 0;
+    for(let i=0;i<SIZE;i++){ rms += buf[i]*buf[i]; }
+    rms = Math.sqrt(rms/SIZE);
+    if(rms < 0.01) return -1;
+    let r1=0, r2=SIZE-1, thresh=0.2;
+    for(let i=0;i<SIZE/2;i++){ if(Math.abs(buf[i])<thresh){ r1=i; break; } }
+    for(let i=1;i<SIZE/2;i++){ if(Math.abs(buf[SIZE-i])<thresh){ r2=SIZE-i; break; } }
+    const trimmed = buf.slice(r1,r2);
+    const n = trimmed.length;
+    const c = new Array(n).fill(0);
+    for(let i=0;i<n;i++){ for(let j=0;j<n-i;j++){ c[i] += trimmed[j]*trimmed[j+i]; } }
+    let d=0; while(c[d]>c[d+1]) d++;
+    let maxval=-1, maxpos=-1;
+    for(let i=d;i<n;i++){ if(c[i]>maxval){ maxval=c[i]; maxpos=i; } }
+    let T0 = maxpos;
+    if(T0<=0) return -1;
+    const x1=c[T0-1]||0, x2=c[T0]||0, x3=c[T0+1]||0;
+    const a=(x1+x3-2*x2)/2, b=(x3-x1)/2;
+    if(a) T0 = T0 - b/(2*a);
+    return sampleRate/T0;
+  }
+
+  let micStream = null, micCtx = null, micAnalyser = null, micRAF = null;
+  async function startMic(onPitch){
+    try{
+      micStream = await navigator.mediaDevices.getUserMedia({audio:true});
+      micCtx = ensure();
+      const src = micCtx.createMediaStreamSource(micStream);
+      micAnalyser = micCtx.createAnalyser();
+      micAnalyser.fftSize = 2048;
+      src.connect(micAnalyser);
+      const buf = new Float32Array(micAnalyser.fftSize);
+      function loop(){
+        micAnalyser.getFloatTimeDomainData(buf);
+        const freq = autoCorrelate(buf, micCtx.sampleRate);
+        onPitch(freq);
+        micRAF = requestAnimationFrame(loop);
+      }
+      loop();
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+  function stopMic(){
+    if(micRAF) cancelAnimationFrame(micRAF);
+    if(micStream){ micStream.getTracks().forEach(t=>t.stop()); }
+    micStream = null; micAnalyser = null;
+  }
+
+  return { ensure, playTone, playMidi, playChordMidis, playArpeggio, click, now, makeMetronome, startMic, stopMic };
+})();
+// =====================================================================
+// STATE + SPACED REPETITION ENGINE (in-memory only — resets on reload)
+// =====================================================================
+const State = {
+  theme: 'light',
+  clock: 0,           // virtual clock, incremented once per answered item (any module)
+  xp: 0,
+  combo: 0,
+  bestCombo: 0,
+  totalAttempts: 0,
+  totalCorrect: 0,
+  totalRt: 0,          // ms, sum
+  items: {},           // itemId -> {box, due, attempts, correct, lastRt}
+  topics: {},          // topic -> {attempts, correct}
+  moduleStats: {},      // module -> {attempts, correct, rt}
+  bpmCeilings: {},      // drillId -> bpm
+  techBpmCurrent: {},    // drillId -> current bpm in Technique Gym
+  earScore: {attempts:0, correct:0},
+  checkpoints: {},      // checkpointId -> boolean unlocked
+  dailyDaysDone: {},     // planId -> Set of day numbers marked done
+  sessionLog: [],       // small ring buffer of recent events for debugging/dashboard
+};
+
+const SRS_INTERVALS = [1,3,7,14,28,55,100]; // in "virtual clock" units (answered items)
+const SRS_MAX_BOX = SRS_INTERVALS.length - 1;
+
+function srsGet(itemId){
+  if(!State.items[itemId]) State.items[itemId] = {box:0, due:0, attempts:0, correct:0, lastRt:0};
+  return State.items[itemId];
+}
+function srsIsDue(itemId){
+  const it = srsGet(itemId);
+  return it.attempts === 0 || it.due <= State.clock;
+}
+function srsMasteryLevel(itemId){
+  const it = srsGet(itemId);
+  if(it.attempts === 0) return 'new';
+  if(it.box >= 4) return 'mastered';
+  if(it.box >= 2) return 'learning';
+  return 'weak';
+}
+function srsAnswer(itemId, correct, rtMs, topic, moduleId){
+  State.clock++;
+  const it = srsGet(itemId);
+  it.attempts++;
+  State.totalAttempts++;
+  State.totalRt += rtMs||0;
+  if(correct){
+    it.correct++;
+    it.box = Math.min(SRS_MAX_BOX, it.box+1);
+    State.totalCorrect++;
+    State.combo++;
+    State.bestCombo = Math.max(State.bestCombo, State.combo);
+  } else {
+    it.box = 0;
+    State.combo = 0;
+  }
+  it.due = State.clock + SRS_INTERVALS[it.box];
+  it.lastRt = rtMs||0;
+
+  if(topic){
+    if(!State.topics[topic]) State.topics[topic] = {attempts:0, correct:0};
+    State.topics[topic].attempts++;
+    if(correct) State.topics[topic].correct++;
+  }
+  if(moduleId){
+    if(!State.moduleStats[moduleId]) State.moduleStats[moduleId] = {attempts:0, correct:0, rt:0};
+    State.moduleStats[moduleId].attempts++;
+    State.moduleStats[moduleId].rt += rtMs||0;
+    if(correct) State.moduleStats[moduleId].correct++;
+  }
+
+  // XP: base 10, speed bonus up to +8, streak bonus up to +10
+  let xpGain = 0;
+  if(correct){
+    xpGain = 10;
+    if(rtMs && rtMs < 4000) xpGain += Math.round(8 * (1 - rtMs/4000));
+    xpGain += Math.min(10, Math.floor(State.combo/3));
+  } else {
+    xpGain = 1; // small consolation XP for attempting
+  }
+  State.xp += xpGain;
+  return {xpGain, box:it.box, mastery:srsMasteryLevel(itemId)};
+}
+
+function weakestTopics(limit=5){
+  const rows = Object.entries(State.topics)
+    .filter(([,v])=>v.attempts>=2)
+    .map(([topic,v])=>({topic, attempts:v.attempts, correct:v.correct, missRate: 1-(v.correct/v.attempts)}))
+    .sort((a,b)=>b.missRate-a.missRate || b.attempts-a.attempts);
+  return rows.slice(0,limit);
+}
+
+function overallAccuracy(){
+  if(State.totalAttempts===0) return 0;
+  return State.totalCorrect/State.totalAttempts;
+}
+function avgResponseTime(){
+  if(State.totalAttempts===0) return 0;
+  return Math.round(State.totalRt/State.totalAttempts);
+}
+function retentionScore(){
+  const all = Object.values(State.items);
+  if(all.length===0) return 0;
+  const mastered = all.filter(i=>i.box>=4).length;
+  return Math.round(100*mastered/all.length);
+}
+function earScorePct(){
+  if(State.earScore.attempts===0) return 0;
+  return Math.round(100*State.earScore.correct/State.earScore.attempts);
+}
+const RANKS = [
+  {min:0,    name:'Novice'},
+  {min:300,  name:'Apprentice'},
+  {min:900,  name:'Adept'},
+  {min:2200, name:'Skilled'},
+  {min:4500, name:'Advanced'},
+  {min:8000, name:'Virtuoso'},
+];
+function masteryRank(){
+  let r = RANKS[0];
+  for(const rk of RANKS){ if(State.xp>=rk.min) r=rk; }
+  return r.name;
+}
+function nextRankInfo(){
+  const idx = RANKS.findIndex(r=>r.name===masteryRank());
+  if(idx===RANKS.length-1) return null;
+  const next = RANKS[idx+1];
+  return {name:next.name, remaining: next.min - State.xp, at: next.min};
+}
+
+function bumpBpmCeiling(drillId, bpm){
+  State.bpmCeilings[drillId] = Math.max(State.bpmCeilings[drillId]||0, bpm);
+}
+// =====================================================================
+// GENERIC RETRIEVAL-PRACTICE DRILL ENGINE (multiple-choice / typed)
+// Retrieval before reveal. Grades via SRS. Supports keyboard shortcuts.
+// =====================================================================
+function el(tag, cls, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html!==undefined) e.innerHTML = html;
+  return e;
+}
+function fmtPct(n){ return Math.round(n*100)+'%'; }
+
+function showToast(msg){
+  const wrap = document.getElementById('toast-wrap');
+  const t = el('div','toast', msg);
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); }, 1800);
+}
+
+// Build an interleaved queue from multiple item pools.
+// pools: [{items:[...], weight:1}], each item needs unique `id`.
+function buildInterleavedQueue(pools, count){
+  const due = [], fresh = [], learned = [];
+  pools.forEach(p=>{
+    p.items.forEach(it=>{
+      const s = srsGet(it.id);
+      if(s.attempts>0 && s.due<=State.clock+2 && s.box<4) due.push(it);
+      else if(s.attempts===0) fresh.push(it);
+      else if(s.box<4) learned.push(it);
+    });
+  });
+  function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+  const dueS = shuffle(due), freshS = shuffle(fresh), learnedS = shuffle(learned);
+  const queue = [];
+  // Priority: due-for-review items first (weak spot targeting), interleaved with fresh new items, topped up with learned-but-not-mastered.
+  let di=0, fi=0, li=0;
+  while(queue.length < count && (di<dueS.length || fi<freshS.length || li<learnedS.length)){
+    if(di<dueS.length && queue.length%3!==2){ queue.push(dueS[di++]); continue; }
+    if(fi<freshS.length){ queue.push(freshS[fi++]); continue; }
+    if(di<dueS.length){ queue.push(dueS[di++]); continue; }
+    if(li<learnedS.length){ queue.push(learnedS[li++]); continue; }
+    break;
+  }
+  // if still short (small pools), cycle through everything again
+  if(queue.length < count){
+    const all = shuffle(pools.flatMap(p=>p.items));
+    let k=0;
+    while(queue.length<count && all.length>0){ queue.push(all[k%all.length]); k++; }
+  }
+  return queue.slice(0,count);
+}
+
+function buildBossQueue(pools, count){
+  const all = pools.flatMap(p=>p.items);
+  const scored = all.map(it=>{
+    const s = srsGet(it.id);
+    const missRate = s.attempts>0 ? 1-(s.correct/s.attempts) : 0.5;
+    return {it, score: missRate*10 + (s.attempts===0?2:0) - s.box};
+  }).sort((a,b)=>b.score-a.score);
+  return scored.slice(0,count).map(x=>x.it).sort(()=>Math.random()-0.5);
+}
+
+/**
+ * Run a drill queue.
+ * opts: {
+ *   container, queue, moduleId, title,
+ *   onProgress(idx,total), onComplete(summary), timeLimitMs (optional per-item soft timer)
+ * }
+ */
+function runDrill(opts){
+  const { container, queue, moduleId, onComplete } = opts;
+  let idx = 0, startedAt = 0, resultsLog = [];
+  let localCombo = 0;
+
+  function renderShell(){
+    container.innerHTML = '';
+    const shell = el('div','drill-shell route-fade');
+    const topline = el('div','drill-topline');
+    topline.innerHTML = `<span>Item <span id="dq-idx">${idx+1}</span> / ${queue.length}</span><span class="combo">Combo <span id="dq-combo">${State.combo}</span></span>`;
+    shell.appendChild(topline);
+    const track = el('div','progress-track');
+    track.style.marginBottom='var(--space-5)';
+    const fill = el('div','progress-fill'); fill.style.width = Math.round(100*idx/queue.length)+'%';
+    track.appendChild(fill);
+    shell.appendChild(track);
+    const cardHost = el('div'); cardHost.id='dq-card-host';
+    shell.appendChild(cardHost);
+    container.appendChild(shell);
+    renderItem();
+  }
+
+  function renderItem(){
+    const host = document.getElementById('dq-card-host');
+    host.innerHTML = '';
+    if(idx >= queue.length){ finish(); return; }
+    const item = queue[idx];
+    startedAt = performance.now();
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic', item.topic||opts.title||''));
+    const s = srsGet(item.id);
+    card.appendChild(el('span','drill-due', s.attempts===0?'new':(s.box>=4?'mastered':'box '+s.box)));
+    const promptEl = el('div','drill-prompt'+(item.promptMono?' mono':''), item.prompt);
+    card.appendChild(promptEl);
+    if(item.hint) card.appendChild(el('div','drill-hint', item.hint));
+    if(item.audioBtn){
+      const btn = el('button','btn btn-ghost btn-sm','▶ Play again');
+      btn.style.marginTop='var(--space-2)';
+      btn.addEventListener('click', ()=>item.audioBtn());
+      card.appendChild(btn);
+      item.audioBtn();
+    }
+    host.appendChild(card);
+
+    if(item.type === 'mc'){
+      renderMC(item, host);
+    } else if(item.type === 'typed'){
+      renderTyped(item, host);
+    } else if(item.type === 'custom' && item.renderCustom){
+      item.renderCustom(host, (correct, extra)=>grade(item, correct, extra));
+    }
+  }
+
+  function renderMC(item, host){
+    const wrap = el('div','choices');
+    const order = item.choices.map((c,i)=>i);
+    order.forEach((choiceIdx, pos)=>{
+      const btn = el('button','choice-btn');
+      btn.innerHTML = `<span class="k">${pos+1}</span><span>${item.choices[choiceIdx]}</span>`;
+      btn.addEventListener('click', ()=>selectMC(item, host, choiceIdx, wrap));
+      wrap.appendChild(btn);
+    });
+    host.appendChild(wrap);
+    const keyHandler = (e)=>{
+      const n = parseInt(e.key,10);
+      if(n>=1 && n<=order.length && !wrap.dataset.locked){
+        selectMC(item, host, order[n-1], wrap);
+      }
+    };
+    document.addEventListener('keydown', keyHandler);
+    wrap._keyHandler = keyHandler;
+  }
+  function selectMC(item, host, choiceIdx, wrap){
+    if(wrap.dataset.locked) return;
+    wrap.dataset.locked = '1';
+    document.removeEventListener('keydown', wrap._keyHandler);
+    const correct = choiceIdx === item.answerIndex;
+    [...wrap.children].forEach((btn,i)=>{
+      btn.disabled = true;
+      if(i===item.answerIndex) btn.classList.add(correct? 'correct':'reveal-correct');
+      else if(i===choiceIdx) btn.classList.add('wrong');
+    });
+    grade(item, correct, {chosen: item.choices[choiceIdx], correctText: item.choices[item.answerIndex]}, host);
+  }
+
+  function renderTyped(item, host){
+    const row = el('div','type-row');
+    const input = el('input','type-input');
+    input.type='text'; input.autocomplete='off'; input.spellcheck=false;
+    input.placeholder = item.placeholder || 'Type your answer';
+    row.appendChild(input);
+    const btn = el('button','btn btn-primary','Check');
+    row.appendChild(btn);
+    host.appendChild(row);
+    setTimeout(()=>input.focus(), 30);
+    function submit(){
+      if(row.dataset.locked) return;
+      row.dataset.locked='1';
+      const val = input.value.trim();
+      const accepted = item.answerText.some(a=>a.toLowerCase()===val.toLowerCase());
+      input.disabled = true; btn.disabled = true;
+      input.classList.add(accepted?'correct':'wrong');
+      grade(item, accepted, {chosen: val||'(blank)', correctText: item.answerText[0]}, host);
+    }
+    btn.addEventListener('click', submit);
+    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter') submit(); });
+  }
+
+  function grade(item, correct, extra, host){
+    const rt = performance.now()-startedAt;
+    const res = srsAnswer(item.id, correct, rt, item.topic, moduleId);
+    if(item.onGraded) item.onGraded(correct);
+    localCombo = correct? localCombo+1 : 0;
+    resultsLog.push({id:item.id, correct, rt});
+    const banner = el('div','feedback-banner'+(correct?' ok':''));
+    const left = el('div');
+    left.innerHTML = correct? `<b>Correct</b>` : `<b>Missed</b> — <span class="fb-answer">${extra&&extra.correctText!==undefined?extra.correctText:''}</span>`;
+    const right = el('div'); right.style.fontFamily='var(--font-mono)'; right.style.fontSize='var(--text-xs)';
+    right.textContent = `+${res.xpGain} XP · ${Math.round(rt)}ms`;
+    banner.appendChild(left); banner.appendChild(right);
+    (host||document.getElementById('dq-card-host')).appendChild(banner);
+    const actions = el('div','drill-actions');
+    const nextBtn = el('button','btn btn-primary', idx<queue.length-1 ? 'Next  ⏎' : 'Finish  ⏎');
+    nextBtn.addEventListener('click', advance);
+    actions.appendChild(nextBtn);
+    (host||document.getElementById('dq-card-host')).appendChild(actions);
+    document.getElementById('stat-combo').textContent = State.combo;
+    document.getElementById('stat-xp').textContent = State.xp;
+    document.getElementById('stat-rank').textContent = masteryRank();
+    const enterHandler = (e)=>{ if(e.key==='Enter'){ document.removeEventListener('keydown', enterHandler); advance(); } };
+    document.addEventListener('keydown', enterHandler);
+    nextBtn._enterHandler = enterHandler;
+  }
+
+  function advance(){
+    idx++;
+    if(opts.onProgress) opts.onProgress(idx, queue.length);
+    renderShell();
+  }
+
+  function finish(){
+    const correctCount = resultsLog.filter(r=>r.correct).length;
+    const summary = {
+      total: resultsLog.length,
+      correct: correctCount,
+      accuracy: resultsLog.length? correctCount/resultsLog.length : 0,
+      avgRt: resultsLog.length? Math.round(resultsLog.reduce((a,r)=>a+r.rt,0)/resultsLog.length) : 0,
+      bestCombo: localCombo,
+    };
+    if(onComplete) onComplete(summary);
+  }
+
+  renderShell();
+  return { skip: advance };
+}
+
+function renderDrillSummary(container, summary, opts={}){
+  container.innerHTML = '';
+  const wrap = el('div','drill-shell route-fade');
+  const card = el('div','card');
+  card.style.textAlign='center';
+  card.innerHTML = `
+    <span class="eyebrow">Session complete</span>
+    <h2 class="view-title" style="margin-bottom:var(--space-4)">${opts.title||'Drill finished'}</h2>
+    <div class="grid grid-3" style="max-width:480px;margin:0 auto var(--space-5)">
+      <div class="stat-block"><div class="num">${fmtPct(summary.accuracy)}</div><div class="lbl">Accuracy</div></div>
+      <div class="stat-block"><div class="num">${summary.avgRt}ms</div><div class="lbl">Avg response</div></div>
+      <div class="stat-block"><div class="num">${summary.correct}/${summary.total}</div><div class="lbl">Correct</div></div>
+    </div>
+  `;
+  const actions = el('div','drill-actions');
+  if(opts.onRetry){ const b=el('button','btn btn-ghost','Run again'); b.addEventListener('click',opts.onRetry); actions.appendChild(b); }
+  const home = el('button','btn btn-primary','Continue'); home.addEventListener('click', opts.onDone||(()=>Router.go('home')));
+  actions.appendChild(home);
+  card.appendChild(actions);
+  wrap.appendChild(card);
+  container.appendChild(wrap);
+}
+// =====================================================================
+// THEORY ACCELERATOR — item pool generators
+// =====================================================================
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function randInt(min,max){ return min+Math.floor(Math.random()*(max-min+1)); }
+function shuffleArr(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function mcFrom(correctText, pool, count=4){
+  const distractors = shuffleArr(pool.filter(x=>x!==correctText)).slice(0,count-1);
+  const choices = shuffleArr([correctText, ...distractors]);
+  return {choices, answerIndex: choices.indexOf(correctText)};
+}
+
+let _idc = 0;
+function uid(prefix){ return prefix+'-'+(_idc++); }
+
+function buildAlphabetPool(){
+  const items = [];
+  // Note naming across the musical alphabet with sharps/flats
+  PC_SHARP.forEach((n, pc)=>{
+    const {choices, answerIndex} = mcFrom(n, PC_SHARP);
+    items.push({ id:'th-alpha-name-'+pc, topic:'Musical alphabet', type:'mc',
+      prompt:`Which note is a half step above ${PC_SHARP[(pc+11)%12]}?`, promptMono:true, choices, answerIndex });
+  });
+  // Enharmonics
+  Object.entries(ENHARMONIC).forEach(([a,b])=>{
+    const {choices, answerIndex} = mcFrom(b, PC_SHARP.concat(PC_FLAT));
+    items.push({ id:'th-enh-'+a, topic:'Enharmonics', type:'mc',
+      prompt:`What is the enharmonic equivalent of ${a}?`, promptMono:true, choices, answerIndex });
+  });
+  // Half/whole steps
+  for(let pc=0; pc<12; pc++){
+    const whole = pcName((pc+2)%12);
+    const {choices, answerIndex} = mcFrom(whole, PC_SHARP);
+    items.push({ id:'th-whole-'+pc, topic:'Half/whole steps', type:'mc',
+      prompt:`A whole step above ${pcName(pc)} is...`, promptMono:true, choices, answerIndex });
+    const half = pcName((pc+1)%12);
+    const {choices:c2, answerIndex:a2} = mcFrom(half, PC_SHARP);
+    items.push({ id:'th-half-'+pc, topic:'Half/whole steps', type:'mc',
+      prompt:`A half step above ${pcName(pc)} is...`, promptMono:true, choices:c2, answerIndex:a2 });
+  }
+  return items;
+}
+
+function buildIntervalPool(){
+  const items = [];
+  for(let i=0;i<24;i++){
+    const rootPc = randInt(0,11);
+    const semi = randInt(1,12);
+    const targetPc = (rootPc+semi)%12;
+    const iv = intervalBySemi(semi);
+    const {choices, answerIndex} = mcFrom(iv.name, INTERVALS.map(x=>x.name));
+    items.push({ id:'th-interval-'+i, topic:'Intervals', type:'mc',
+      prompt:`${pcName(rootPc)} → ${pcName(targetPc)} is which interval?`, promptMono:true,
+      hint:'Count the semitones between the two notes.', choices, answerIndex });
+  }
+  // reverse direction: given root + interval name, name the target note
+  INTERVALS.filter(iv=>iv.semi>0).forEach((iv,i)=>{
+    const rootPc = randInt(0,11);
+    const target = pcName((rootPc+iv.semi)%12);
+    const {choices, answerIndex} = mcFrom(target, PC_SHARP);
+    items.push({ id:'th-interval-build-'+i, topic:'Intervals', type:'mc',
+      prompt:`A ${iv.name} above ${pcName(rootPc)} is...`, promptMono:true, choices, answerIndex });
+  });
+  return items;
+}
+
+function buildScaleSpellingPool(){
+  const items = [];
+  const scaleIds = ['major','nat_minor','harm_minor','mel_minor','maj_pent','min_pent','blues','dorian','phrygian','lydian','mixolydian','locrian','harm_major','phryg_dom','hungarian_min','whole_tone','dim_wh'];
+  scaleIds.forEach((sid, si)=>{
+    const scale = scaleById(sid);
+    for(let i=0;i<2;i++){
+      const rootPc = randInt(0,11);
+      const notes = buildScale(rootPc, sid).map(pc=>pcName(pc));
+      const degreeIdx = randInt(1, notes.length-1);
+      const correct = notes[degreeIdx];
+      const {choices, answerIndex} = mcFrom(correct, PC_SHARP);
+      items.push({ id:`th-scale-${sid}-${i}`, topic:`Scale: ${scale.name}`, type:'mc',
+        prompt:`In ${pcName(rootPc)} ${scale.name}, what is note #${degreeIdx+1}?`, promptMono:true,
+        hint:`Formula (semitones from root): ${scale.formula.join(', ')}`, choices, answerIndex });
+    }
+    // "which note does NOT belong"
+    const rootPc2 = randInt(0,11);
+    const notesIn = buildScale(rootPc2, sid);
+    let outside; do { outside = randInt(0,11); } while(notesIn.includes(outside));
+    const optionsPc = shuffleArr([...notesIn.slice(0,3), outside]);
+    const choices = optionsPc.map(pc=>pcName(pc));
+    items.push({ id:`th-scale-odd-${sid}`, topic:`Scale: ${scale.name}`, type:'mc',
+      prompt:`Which note is NOT in ${pcName(rootPc2)} ${scale.name}?`, promptMono:true,
+      choices, answerIndex: choices.indexOf(pcName(outside)) });
+  });
+  return items;
+}
+
+function buildDegreePool(){
+  const items = [];
+  for(let i=0;i<14;i++){
+    const rootPc = randInt(0,11);
+    const notes = buildScale(rootPc,'major');
+    const degIdx = randInt(0,6);
+    const {choices, answerIndex} = mcFrom(SCALE_DEGREE_NAMES[degIdx], SCALE_DEGREE_NAMES);
+    items.push({ id:'th-degname-'+i, topic:'Scale degrees', type:'mc',
+      prompt:`In ${pcName(rootPc)} major, scale degree ${degIdx+1} is called the...`, choices, answerIndex });
+  }
+  for(let i=0;i<8;i++){
+    const rootPc = randInt(0,11);
+    const notes = buildScale(rootPc,'major');
+    const degIdx = randInt(0,6);
+    const correct = pcName(notes[degIdx]);
+    const {choices, answerIndex} = mcFrom(correct, PC_SHARP);
+    items.push({ id:'th-degnote-'+i, topic:'Scale degrees', type:'mc',
+      prompt:`In ${pcName(rootPc)} major, what note is the ${SCALE_DEGREE_NAMES[degIdx]} (degree ${degIdx+1})?`, promptMono:true,
+      choices, answerIndex });
+  }
+  return items;
+}
+
+function buildDiatonicPool(){
+  const items = [];
+  for(let i=0;i<16;i++){
+    const rootPc = randInt(0,11);
+    const degIdx = randInt(0,6);
+    const roman = MAJOR_KEY_ROMAN[degIdx];
+    const quality = MAJOR_KEY_TRIAD_QUALITY[degIdx];
+    const qualityName = {maj:'major',min:'minor',dim:'diminished'}[quality];
+    const {choices, answerIndex} = mcFrom(qualityName, ['major','minor','diminished','augmented']);
+    items.push({ id:'th-diatonic-q-'+i, topic:'Diatonic harmony', type:'mc',
+      prompt:`In a major key, the ${roman} chord (degree ${degIdx+1}) is...`, promptMono:true, choices, answerIndex });
+  }
+  for(let i=0;i<10;i++){
+    const degIdx = randInt(0,6);
+    const {choices, answerIndex} = mcFrom(MAJOR_KEY_ROMAN[degIdx], MAJOR_KEY_ROMAN);
+    items.push({ id:'th-diatonic-roman-'+i, topic:'Diatonic harmony', type:'mc',
+      prompt:`Which Roman numeral represents scale degree ${degIdx+1} in a major key?`, choices, answerIndex });
+  }
+  for(let i=0;i<10;i++){
+    const degIdx = randInt(0,6);
+    const {choices, answerIndex} = mcFrom(MAJOR_KEY_ROMAN7[degIdx], MAJOR_KEY_ROMAN7);
+    items.push({ id:'th-diatonic-roman7-'+i, topic:'Seventh chords', type:'mc',
+      prompt:`What is the diatonic 7th chord built on scale degree ${degIdx+1} of a major key?`, choices, answerIndex });
+  }
+  // full formula recall (typed)
+  items.push({ id:'th-formula-typed', topic:'Major-key formula', type:'typed',
+    prompt:'Type the major-key chord formula using Roman numerals (e.g. "I ii iii IV V vi vii")',
+    placeholder:'I ii iii IV V vi vii',
+    answerText:['I ii iii IV V vi vii','I ii iii IV V vi vii°'] });
+  return items;
+}
+
+function buildMinorFamilyPool(){
+  const items = [];
+  for(let i=0;i<8;i++){
+    const degIdx = randInt(0,6);
+    const {choices, answerIndex} = mcFrom(NAT_MINOR_ROMAN[degIdx], NAT_MINOR_ROMAN);
+    items.push({ id:'th-minfam-nat-'+i, topic:'Minor-key chord families', type:'mc',
+      prompt:`In natural minor, what is the Roman numeral for scale degree ${degIdx+1}?`, choices, answerIndex });
+  }
+  for(let i=0;i<8;i++){
+    const degIdx = randInt(0,6);
+    const {choices, answerIndex} = mcFrom(HARM_MINOR_ROMAN[degIdx], HARM_MINOR_ROMAN);
+    items.push({ id:'th-minfam-harm-'+i, topic:'Minor-key chord families', type:'mc',
+      prompt:`In harmonic minor, what is the Roman numeral for scale degree ${degIdx+1}? (raised 7th)`, choices, answerIndex });
+  }
+  items.push({ id:'th-minfam-vdom', topic:'Minor-key chord families', type:'mc',
+    prompt:'Why does harmonic minor raise the 7th degree?', choices: shuffleArr(['To create a major V chord (functional dominant)','To avoid the tritone','To match the relative major','Tradition only']),
+    answerIndex: 0 });
+  items[items.length-1].answerIndex = items[items.length-1].choices.indexOf('To create a major V chord (functional dominant)');
+  return items;
+}
+
+function buildTriadPool(){
+  const items = [];
+  CHORD_TYPES.filter(c=>['maj','min','dim','aug'].includes(c.id)).forEach((ct,ci)=>{
+    for(let i=0;i<3;i++){
+      const rootPc = randInt(0,11);
+      const tones = buildChord(rootPc, ct.id).map(pc=>pcName(pc));
+      const correct = tones.join(' - ');
+      const pool = [correct];
+      while(pool.length<4){
+        const fakeRoot = randInt(0,11);
+        const fakeType = rand(CHORD_TYPES.filter(c=>['maj','min','dim','aug'].includes(c.id)));
+        const fake = buildChord(fakeRoot, fakeType.id).map(pc=>pcName(pc)).join(' - ');
+        if(!pool.includes(fake)) pool.push(fake);
+      }
+      const choices = shuffleArr(pool);
+      items.push({ id:`th-triad-${ct.id}-${i}`, topic:'Triads', type:'mc',
+        prompt:`Spell the ${pcName(rootPc)} ${ct.name.replace(' triad','')} triad.`, promptMono:true,
+        choices, answerIndex: choices.indexOf(correct) });
+    }
+  });
+  // inversions
+  const invNames = ['Root position','First inversion','Second inversion'];
+  for(let i=0;i<9;i++){
+    const rootPc = randInt(0,11);
+    const type = rand(['maj','min']);
+    const tones = buildChord(rootPc, type);
+    const invIdx = randInt(0,2);
+    const bassNote = pcName(tones[invIdx]);
+    const {choices, answerIndex} = mcFrom(invNames[invIdx], invNames);
+    items.push({ id:'th-inv-'+i, topic:'Triads & inversions', type:'mc',
+      prompt:`A ${pcName(rootPc)} ${type==='maj'?'major':'minor'} triad with ${bassNote} in the bass is in...`,
+      promptMono:true, choices, answerIndex });
+  }
+  return items;
+}
+
+function buildSeventhExtensionPool(){
+  const items = [];
+  CHORD_TYPES.forEach((ct,ci)=>{
+    for(let i=0;i<2;i++){
+      const rootPc = randInt(0,11);
+      const tones = buildChord(rootPc, ct.id).map(pc=>pcName(pc));
+      const correct = tones.join(' - ');
+      const pool = [correct];
+      while(pool.length<4){
+        const fakeRoot = randInt(0,11);
+        const fakeType = rand(CHORD_TYPES);
+        const fake = buildChord(fakeRoot, fakeType.id).map(pc=>pcName(pc)).join(' - ');
+        if(!pool.includes(fake)) pool.push(fake);
+      }
+      const choices = shuffleArr(pool);
+      items.push({ id:`th-7th-${ct.id}-${i}`, topic:'Seventh chords & extensions', type:'mc',
+        prompt:`Spell ${pcName(rootPc)}${ct.symbol}.`, promptMono:true,
+        choices, answerIndex: choices.indexOf(correct) });
+    }
+  });
+  // borrowed chords & secondary dominants (conceptual)
+  const borrowed = [
+    {q:'A chord borrowed from the parallel minor into a major key (e.g. bVI, bVII, iv) is called a...', choices:['Borrowed (modal mixture) chord','Secondary dominant','Passing chord','Neapolitan chord'], a:0},
+    {q:'A "secondary dominant" is a chord that functions as the V of...', choices:['A scale degree other than the tonic','The subdominant only','The relative minor only','The tritone substitute'], a:0},
+    {q:'V7/V (five of five) in the key of C major resolves most naturally to...', choices:['G (V)','C (I)','F (IV)','A minor (vi)'], a:0},
+    {q:'Borrowing the iv chord (minor four) into a major key is a classic example of...', choices:['Modal mixture','Secondary dominant','Tritone substitution','Pivot modulation'], a:0},
+    {q:'A secondary dominant\'s chord symbol "V7/ii" means it resolves to which diatonic chord?', choices:['ii','V','vi','IV'], a:0},
+  ];
+  borrowed.forEach((b,i)=>{
+    const choices = shuffleArr(b.choices);
+    items.push({ id:'th-borrowed-'+i, topic:'Borrowed chords & secondary dominants', type:'mc',
+      prompt:b.q, choices, answerIndex: choices.indexOf(b.choices[b.a]) });
+  });
+  return items;
+}
+
+function buildCagedPool(){
+  const items = [];
+  CAGED_ORDER.forEach((shape,i)=>{
+    const {choices, answerIndex} = mcFrom(CAGED_INFO[shape].rootString, CAGED_ORDER.map(s=>CAGED_INFO[s].rootString));
+    items.push({ id:'th-caged-root-'+shape, topic:'CAGED system', type:'mc',
+      prompt:`In the CAGED system, the "${shape}" shape carries its main root on the...`, choices, answerIndex });
+  });
+  for(let i=0;i<5;i++){
+    const startIdx = randInt(0,4);
+    const nextIdx = (startIdx+1)%5;
+    const {choices, answerIndex} = mcFrom(CAGED_ORDER[nextIdx], CAGED_ORDER);
+    items.push({ id:'th-caged-order-'+i, topic:'CAGED system', type:'mc',
+      prompt:`Moving up the neck, the shape after "${CAGED_ORDER[startIdx]}" in the CAGED cycle is...`, choices, answerIndex });
+  }
+  return items;
+}
+
+function buildCircleOfFifthsPool(){
+  const items = [];
+  CIRCLE_OF_FIFTHS.forEach((k,i)=>{
+    const {choices, answerIndex} = mcFrom(k.min, CIRCLE_OF_FIFTHS.map(x=>x.min));
+    items.push({ id:'th-cof-relmin-'+i, topic:'Circle of fifths', type:'mc',
+      prompt:`What is the relative minor of ${k.maj} major?`, choices, answerIndex });
+    const sig = k.sharps>0? `${k.sharps} sharp${k.sharps>1?'s':''}` : (k.flats>0? `${k.flats} flat${k.flats>1?'s':''}` : 'no sharps or flats');
+    const {choices:c2, answerIndex:a2} = mcFrom(sig, ['no sharps or flats','1 sharp','2 sharps','3 sharps','4 sharps','5 sharps','1 flat','2 flats','3 flats','4 flats','5 flats','6 sharps']);
+    items.push({ id:'th-cof-sig-'+i, topic:'Circle of fifths', type:'mc',
+      prompt:`How many sharps or flats does ${k.maj} major have?`, choices:c2, answerIndex:a2 });
+  });
+  for(let i=0;i<6;i++){
+    const idx = randInt(0,11);
+    const next = CIRCLE_OF_FIFTHS[(idx+1)%12];
+    const {choices, answerIndex} = mcFrom(next.maj, CIRCLE_OF_FIFTHS.map(x=>x.maj));
+    items.push({ id:'th-cof-next-'+i, topic:'Circle of fifths', type:'mc',
+      prompt:`Moving clockwise (up a 5th) from ${CIRCLE_OF_FIFTHS[idx].maj} major, the next key is...`, choices, answerIndex });
+  }
+  return items;
+}
+
+function buildModePool(){
+  const items = [];
+  MODE_ORDER.forEach((mid,i)=>{
+    const {choices, answerIndex} = mcFrom(MODE_DISPLAY[mid], Object.values(MODE_DISPLAY));
+    items.push({ id:'th-mode-name-'+i, topic:'Modes', type:'mc',
+      prompt:`The mode built on scale degree ${i+1} of the major scale is called...`, choices, answerIndex });
+  });
+  const modeMoods = {major:'Bright, resolved — the default major sound', dorian:'Minor but with a bright 6th — cool, unresolved minor', phrygian:'Dark, exotic — flamenco/metal flavor from the b2', lydian:'Dreamy, floating — major with a raised 4th', mixolydian:'Bluesy major — major scale with a b7', nat_minor:'Sad, dark — the standard natural minor sound', locrian:'Unstable, tense — diminished 5th makes it hard to resolve to'};
+  Object.entries(modeMoods).forEach(([mid,desc],i)=>{
+    const {choices, answerIndex} = mcFrom(MODE_DISPLAY[mid], Object.values(MODE_DISPLAY));
+    items.push({ id:'th-mode-mood-'+i, topic:'Modes', type:'mc',
+      prompt:`Which mode: "${desc}"?`, choices, answerIndex });
+  });
+  return items;
+}
+
+function buildAllTheoryPools(){
+  return {
+    alphabet: {name:'Musical Alphabet & Steps', items: buildAlphabetPool()},
+    intervals: {name:'Intervals', items: buildIntervalPool()},
+    scales: {name:'Scales', items: buildScaleSpellingPool()},
+    degrees: {name:'Scale Degrees', items: buildDegreePool()},
+    diatonic: {name:'Diatonic Harmony & Roman Numerals', items: buildDiatonicPool()},
+    minorFamily: {name:'Minor-Key Chord Families', items: buildMinorFamilyPool()},
+    triads: {name:'Triads & Inversions', items: buildTriadPool()},
+    sevenths: {name:'7th Chords, Extensions & Borrowed Chords', items: buildSeventhExtensionPool()},
+    caged: {name:'CAGED System', items: buildCagedPool()},
+    circleOfFifths: {name:'Circle of Fifths', items: buildCircleOfFifthsPool()},
+    modes: {name:'Modes', items: buildModePool()},
+  };
+}
+// =====================================================================
+// FRETBOARD SPRINT — interactive fretboard + note drills
+// =====================================================================
+const FRET_MARKERS = [3,5,7,9,12,15,17,19,21];
+function isNaturalPc(pc){ return [0,2,4,5,7,9,11].includes(pc); }
+
+function renderFretboardDiagram(fretMin, fretMax, stringsAllowed, cellRenderer, onCellClick){
+  const wrap = el('div','fretboard-wrap');
+  const board = el('div','fretboard');
+  for(let s=0; s<6; s++){
+    if(!stringsAllowed.has(s)) continue;
+    const row = el('div','fret-row');
+    const label = el('div','fret-cell', `<span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--muted)">${STRING_NAMES[s].split(' ')[0]}</span>`);
+    row.appendChild(label);
+    for(let f=fretMin; f<=fretMax; f++){
+      const cell = el('div','fret-cell');
+      cell.appendChild(el('div','string-line'));
+      if(FRET_MARKERS.includes(f) && s===2){ /* marker only drawn once via row 2 for visual reference */ }
+      const info = cellRenderer(s,f);
+      if(info){
+        const dot = el('div','note-dot'+(info.cls?(' '+info.cls):''), info.label!==undefined?info.label:'');
+        if(onCellClick) dot.addEventListener('click', ()=>onCellClick(s,f));
+        cell.appendChild(dot);
+      }
+      row.appendChild(cell);
+    }
+    board.appendChild(row);
+  }
+  // fret number row
+  const numRow = el('div','fret-row');
+  numRow.appendChild(el('div','fret-cell',''));
+  for(let f=fretMin; f<=fretMax; f++){
+    numRow.appendChild(el('div','fret-num', FRET_MARKERS.includes(f)? `<b>${f}</b>` : f));
+  }
+  board.appendChild(numRow);
+  wrap.appendChild(board);
+  return wrap;
+}
+
+const FretboardSprint = (function(){
+  let settings = {
+    mode: 'name',        // name | find | octave
+    input: 'mc',          // mc | typed
+    naturalOnly: false,
+    strings: new Set([0,1,2,3,4,5]),
+    fretMin: 0,
+    fretMax: 12,
+    findString: 0,
+  };
+  let sessionCount = 0, sessionTarget = 15, sessionCorrect = 0, container = null;
+  let current = null;
+
+  function candidateCells(){
+    const cells = [];
+    settings.strings.forEach(s=>{
+      for(let f=settings.fretMin; f<=settings.fretMax; f++){
+        const pc = noteAtStringFret(s,f);
+        if(settings.naturalOnly && !isNaturalPc(pc)) continue;
+        cells.push({s,f,pc});
+      }
+    });
+    return cells;
+  }
+
+  function pickCell(){
+    const cells = candidateCells();
+    if(cells.length===0) return null;
+    const due = cells.filter(c=>{ const it = srsGet('fb-'+c.s+'-'+c.f); return it.attempts>0 && it.due<=State.clock+2 && it.box<4; });
+    if(due.length && Math.random()<0.55) return rand(due);
+    const fresh = cells.filter(c=>srsGet('fb-'+c.s+'-'+c.f).attempts===0);
+    if(fresh.length && Math.random()<0.6) return rand(fresh);
+    return rand(cells);
+  }
+
+  let panelHost = null;
+
+  function refreshPanel(){
+    if(!panelHost) return;
+    panelHost.innerHTML='';
+    panelHost.appendChild(buildSettingsPanel());
+  }
+
+  function renderSettingsPanel(){
+    panelHost = el('div');
+    panelHost.appendChild(buildSettingsPanel());
+    return panelHost;
+  }
+
+  function buildSettingsPanel(){
+    const panel = el('div','card card-tight');
+    panel.style.marginBottom='var(--space-5)';
+    panel.innerHTML = `
+      <div class="grid grid-3" style="align-items:end">
+        <div>
+          <span class="eyebrow">Drill mode</span>
+          <div class="segmented" id="fb-mode-seg">
+            <button data-v="name" class="${settings.mode==='name'?'active':''}">Name it</button>
+            <button data-v="find" class="${settings.mode==='find'?'active':''}">Find it</button>
+            <button data-v="octave" class="${settings.mode==='octave'?'active':''}">Octave</button>
+          </div>
+        </div>
+        <div>
+          <span class="eyebrow">Answer input</span>
+          <div class="segmented" id="fb-input-seg">
+            <button data-v="mc" class="${settings.input==='mc'?'active':''}">Multiple choice</button>
+            <button data-v="typed" class="${settings.input==='typed'?'active':''}">Typed</button>
+          </div>
+        </div>
+        <div>
+          <span class="eyebrow">Note set</span>
+          <div class="segmented" id="fb-natural-seg">
+            <button data-v="0" class="${!settings.naturalOnly?'active':''}">Chromatic</button>
+            <button data-v="1" class="${settings.naturalOnly?'active':''}">Natural only</button>
+          </div>
+        </div>
+      </div>
+      <hr class="div">
+      <div class="grid grid-2">
+        <div>
+          <span class="eyebrow">Strings</span>
+          <div class="pool-toggle" id="fb-strings">
+            ${STRING_NAMES.map((n,i)=>`<span class="tag ${settings.strings.has(i)?'on':''}" data-s="${i}" style="cursor:pointer">${n}</span>`).join('')}
+          </div>
+        </div>
+        <div>
+          <span class="eyebrow">Fret range: <span id="fb-range-label">${settings.fretMin}–${settings.fretMax}</span></span>
+          <div style="display:flex;gap:var(--space-3);align-items:center">
+            <input type="range" id="fb-fret-min" min="0" max="21" value="${settings.fretMin}">
+            <input type="range" id="fb-fret-max" min="0" max="21" value="${settings.fretMax}">
+          </div>
+        </div>
+      </div>
+    `;
+    panel.querySelectorAll('#fb-mode-seg button').forEach(b=>b.addEventListener('click',()=>{ settings.mode=b.dataset.v; refreshPanel(); startSession(); }));
+    panel.querySelectorAll('#fb-input-seg button').forEach(b=>b.addEventListener('click',()=>{ settings.input=b.dataset.v; refreshPanel(); startSession(); }));
+    panel.querySelectorAll('#fb-natural-seg button').forEach(b=>b.addEventListener('click',()=>{ settings.naturalOnly=b.dataset.v==='1'; refreshPanel(); startSession(); }));
+    panel.querySelectorAll('#fb-strings .tag').forEach(t=>t.addEventListener('click',()=>{
+      const s = parseInt(t.dataset.s,10);
+      if(settings.strings.has(s)){ if(settings.strings.size>1) settings.strings.delete(s); } else settings.strings.add(s);
+      refreshPanel();
+      startSession();
+    }));
+    panel.querySelector('#fb-fret-min').addEventListener('input',(e)=>{ settings.fretMin=Math.min(parseInt(e.target.value,10), settings.fretMax); const lbl=panel.querySelector('#fb-range-label'); if(lbl) lbl.textContent=settings.fretMin+'\u2013'+settings.fretMax; startSession(); });
+    panel.querySelector('#fb-fret-max').addEventListener('input',(e)=>{ settings.fretMax=Math.max(parseInt(e.target.value,10), settings.fretMin); const lbl=panel.querySelector('#fb-range-label'); if(lbl) lbl.textContent=settings.fretMin+'\u2013'+settings.fretMax; startSession(); });
+    return panel;
+  }
+
+  function generateQuestion(){
+    const cell = pickCell();
+    if(!cell) return null;
+    let mode = settings.mode;
+    if(mode==='octave' && cell.f+12>21 && cell.f-12<0) mode='name';
+    return {cell, mode};
+  }
+
+  function renderQuestion(){
+    const host = document.getElementById('fb-host');
+    host.innerHTML='';
+    current = generateQuestion();
+    if(!current){ host.appendChild(el('div','empty','Select at least one string to begin.')); return; }
+    const {cell, mode} = current;
+    const topline = el('div','drill-topline');
+    topline.innerHTML = `<span>Note ${sessionCount+1} / ${sessionTarget}</span><span class="combo">Combo <span id="stat-combo-fb">${State.combo}</span></span>`;
+    host.appendChild(topline);
+    const trk = el('div','progress-track'); trk.style.marginBottom='var(--space-5)';
+    trk.appendChild((()=>{ const f=el('div','progress-fill'); f.style.width=Math.round(100*sessionCount/sessionTarget)+'%'; return f; })());
+    host.appendChild(trk);
+
+    const promptWrap = el('div','card');
+    promptWrap.style.textAlign='center';
+    let promptText, board, answerZone = el('div');
+
+    if(mode==='name'){
+      promptText = 'Name this note.';
+      const targetNote = pcName(cell.pc);
+      board = renderFretboardDiagram(settings.fretMin, settings.fretMax, settings.strings, (s,f)=>{
+        if(s===cell.s && f===cell.f) return {cls:'target'};
+        return null;
+      }, null);
+      promptWrap.appendChild(el('div','drill-topic','Fretboard Sprint · Name it'));
+      promptWrap.appendChild(el('h3','',promptText));
+      promptWrap.appendChild(board);
+      answerZone = buildAnswerZone(targetNote, (correct, chosenText)=>gradeCell(cell, correct, chosenText, targetNote));
+      promptWrap.appendChild(answerZone);
+    } else if(mode==='find'){
+      const targetNote = pcName(cell.pc);
+      promptWrap.appendChild(el('div','drill-topic','Fretboard Sprint · Find it'));
+      promptWrap.appendChild(el('h3','',`Tap every ${targetNote} on the ${STRING_NAMES[cell.s]} string.`));
+      const validFrets = [];
+      for(let f=settings.fretMin; f<=settings.fretMax; f++){ if(noteAtStringFret(cell.s,f)===cell.pc) validFrets.push(f); }
+      let hits = new Set(), misses = new Set(), locked=false;
+      const singleStringSet = new Set([cell.s]);
+      const rerender = ()=>{
+        const b2 = renderFretboardDiagram(settings.fretMin, settings.fretMax, singleStringSet, (s,f)=>{
+          if(hits.has(f)) return {cls:'note-dot hit', label:''};
+          if(misses.has(f)) return {cls:'note-dot miss', label:''};
+          return {cls:'', label:''};
+        }, (s,f)=>{
+          if(locked) return;
+          if(validFrets.includes(f)){
+            hits.add(f);
+            if(hits.size===validFrets.length){ locked=true; gradeCell(cell, true, 'tapped all', targetNote); }
+            else { rerender(); }
+          } else {
+            misses.add(f); locked=true;
+            gradeCell(cell, false, 'wrong fret', targetNote, validFrets);
+          }
+        });
+        boardHost.innerHTML=''; boardHost.appendChild(b2);
+      };
+      const boardHost = el('div');
+      promptWrap.appendChild(boardHost);
+      rerender();
+    } else if(mode==='octave'){
+      const up = cell.f+12<=21;
+      const targetFret = up? cell.f+12 : cell.f-12;
+      const targetNote = pcName(cell.pc);
+      promptWrap.appendChild(el('div','drill-topic','Fretboard Sprint · Octave'));
+      promptWrap.appendChild(el('h3','',`This is ${targetNote} on the ${STRING_NAMES[cell.s]} string, fret ${cell.f}. Type the fret for the same note one octave ${up?'higher':'lower'} on the same string.`));
+      const bd = renderFretboardDiagram(settings.fretMin, Math.max(settings.fretMax,21), new Set([cell.s]), (s,f)=>{
+        if(s===cell.s && f===cell.f) return {cls:'target'};
+        return null;
+      }, null);
+      promptWrap.appendChild(bd);
+      const row = el('div','type-row');
+      const input = el('input','type-input'); input.type='number'; input.placeholder='Fret #';
+      const btn = el('button','btn btn-primary','Check');
+      row.appendChild(input); row.appendChild(btn);
+      promptWrap.appendChild(row);
+      const submit = ()=>{
+        if(row.dataset.locked) return; row.dataset.locked='1';
+        const val = parseInt(input.value,10);
+        const correct = val===targetFret;
+        input.disabled=true; btn.disabled=true;
+        input.classList.add(correct?'correct':'wrong');
+        gradeCell(cell, correct, String(val), String(targetFret));
+      };
+      btn.addEventListener('click',submit);
+      input.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); });
+      setTimeout(()=>input.focus(),20);
+    }
+    host.appendChild(promptWrap);
+  }
+
+  function buildAnswerZone(targetNote, onAnswered){
+    const zone = el('div');
+    if(settings.input==='mc'){
+      const pool = settings.naturalOnly ? PC_SHARP.filter(n=>!n.includes('#')) : PC_SHARP;
+      const {choices, answerIndex} = mcFrom(targetNote, pool);
+      const wrap = el('div','choices');
+      choices.forEach((c,i)=>{
+        const b = el('button','choice-btn', `<span class="k">${i+1}</span><span>${c}</span>`);
+        b.addEventListener('click',()=>{
+          if(wrap.dataset.locked) return; wrap.dataset.locked='1';
+          const correct = c===targetNote;
+          [...wrap.children].forEach((btn,j)=>{ btn.disabled=true; if(j===answerIndex) btn.classList.add(correct?'correct':'reveal-correct'); else if(btn===b) btn.classList.add('wrong'); });
+          onAnswered(correct, c);
+        });
+        wrap.appendChild(b);
+      });
+      zone.appendChild(wrap);
+    } else {
+      const row = el('div','type-row');
+      const input = el('input','type-input'); input.placeholder='Note name (e.g. F#)';
+      const btn = el('button','btn btn-primary','Check');
+      row.appendChild(input); row.appendChild(btn);
+      const submit = ()=>{
+        if(row.dataset.locked) return; row.dataset.locked='1';
+        const val = input.value.trim();
+        const norm = v=>v.replace('♯','#').replace('♭','b').trim().toUpperCase().replace('B','b').replace(/^([A-G])b/i,(m,l)=>l.toUpperCase()+'b').replace(/^([A-G])#/i,(m,l)=>l.toUpperCase()+'#');
+        const acceptable = [targetNote, ENHARMONIC[targetNote]].filter(Boolean).map(x=>x.toUpperCase());
+        const correct = acceptable.includes(val.toUpperCase());
+        input.disabled=true; btn.disabled=true; input.classList.add(correct?'correct':'wrong');
+        onAnswered(correct, val);
+      };
+      btn.addEventListener('click',submit);
+      input.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); });
+      row.appendChild(input);
+      zone.appendChild(row);
+      setTimeout(()=>input.focus(),20);
+    }
+    return zone;
+  }
+
+  function gradeCell(cell, correct, chosenText, correctText, extraValidFrets){
+    const itemId = 'fb-'+cell.s+'-'+cell.f;
+    const rt = performance.now() - (current.startedAt||performance.now());
+    const res = srsAnswer(itemId, correct, rt, 'Fretboard: '+STRING_NAMES[cell.s], 'fretboard');
+    sessionCount++;
+    if(correct) sessionCorrect++;
+    const host = document.getElementById('fb-host');
+    const banner = el('div','feedback-banner'+(correct?' ok':''));
+    banner.innerHTML = `<div><b>${correct?'Correct':'Missed'}</b>${correct?'':` — answer: <span class="fb-answer">${correctText}</span>`}</div><div style="font-family:var(--font-mono);font-size:var(--text-xs)">+${res.xpGain} XP</div>`;
+    host.appendChild(banner);
+    const actions = el('div','drill-actions');
+    const nextBtn = el('button','btn btn-primary', sessionCount<sessionTarget? 'Next  ⏎':'Finish  ⏎');
+    nextBtn.addEventListener('click', ()=>{
+      if(sessionCount>=sessionTarget) finishSession(); else renderQuestion();
+    });
+    actions.appendChild(nextBtn);
+    host.appendChild(actions);
+    const enterHandler=(e)=>{ if(e.key==='Enter'){ document.removeEventListener('keydown',enterHandler); nextBtn.click(); } };
+    document.addEventListener('keydown', enterHandler);
+    document.getElementById('stat-combo').textContent = State.combo;
+    document.getElementById('stat-xp').textContent = State.xp;
+    document.getElementById('stat-rank').textContent = masteryRank();
+  }
+
+  function finishSession(){
+    const host = document.getElementById('fb-host');
+    renderDrillSummary(host, {
+      total: sessionTarget, correct: sessionCorrect,
+      accuracy: sessionCorrect/sessionTarget,
+      avgRt: 0,
+    }, { title:'Fretboard Sprint', onRetry: startSession, onDone: ()=>Router.go('home') });
+  }
+
+  function startSession(){
+    sessionCount=0; sessionCorrect=0;
+    renderQuestion();
+    current && (current.startedAt = performance.now());
+  }
+
+  function mount(hostContainer){
+    container = hostContainer;
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 02</span><h1 class="view-title">Fretboard Sprint</h1><p class="view-sub">Single-note ID drills across the neck — typed or multiple choice, natural or chromatic, with weak-note resurfacing.</p></div>'));
+    wrap.appendChild(renderSettingsPanel());
+    const host = el('div'); host.id='fb-host'; host.className='drill-shell';
+    wrap.appendChild(host);
+    container.appendChild(wrap);
+    startSession();
+  }
+
+  return { mount };
+})();
+// =====================================================================
+// EAR TRAINER — notes, intervals, chord quality, progressions,
+// sing-and-match, call-and-response, micro-transcription
+// =====================================================================
+const EarTrainer = (function(){
+  let mode = 'notes';
+  let sessionCount=0, sessionTarget=10, sessionCorrect=0;
+  let micActive = false;
+
+  const MODES = [
+    {id:'notes', label:'Notes'},
+    {id:'intervals', label:'Intervals'},
+    {id:'chords', label:'Chord Quality'},
+    {id:'progressions', label:'Progressions'},
+    {id:'sing', label:'Sing & Match'},
+    {id:'callresponse', label:'Call & Response'},
+    {id:'transcribe', label:'Micro-Transcription'},
+  ];
+  const CHORD_QUAL_IDS = ['maj','min','dim','aug','maj7','dom7','min7','m7b5','dim7'];
+
+  function earGrade(correct){ State.earScore.attempts++; if(correct) State.earScore.correct++; }
+
+  function statUpdate(){
+    document.getElementById('stat-combo').textContent = State.combo;
+    document.getElementById('stat-xp').textContent = State.xp;
+    document.getElementById('stat-rank').textContent = masteryRank();
+  }
+
+  function renderModeSwitch(host){
+    const seg = el('div','segmented');
+    seg.style.flexWrap='wrap';
+    MODES.forEach(m=>{
+      const b = el('button', mode===m.id?'active':'', m.label);
+      b.addEventListener('click',()=>{ mode=m.id; startSession(); });
+      seg.appendChild(b);
+    });
+    host.appendChild(seg);
+  }
+
+  function playAndNext(playFn, buildAnswer){
+    const host = document.getElementById('ear-host');
+    host.innerHTML='';
+    const topline = el('div','drill-topline');
+    topline.innerHTML = `<span>Item ${sessionCount+1} / ${sessionTarget}</span><span class="combo">Combo <span>${State.combo}</span></span>`;
+    host.appendChild(topline);
+    const trk = el('div','progress-track'); trk.style.marginBottom='var(--space-5)';
+    const f=el('div','progress-fill'); f.style.width=Math.round(100*sessionCount/sessionTarget)+'%'; trk.appendChild(f);
+    host.appendChild(trk);
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Ear Trainer · '+MODES.find(m=>m.id===mode).label));
+    buildAnswer(card, playFn);
+    host.appendChild(card);
+    playFn();
+  }
+
+  function replayBtn(card, playFn){
+    const b = el('button','btn btn-ghost btn-sm','▶ Replay');
+    b.style.marginTop='var(--space-2)';
+    b.addEventListener('click', playFn);
+    card.appendChild(b);
+  }
+
+  function mcAnswerBlock(card, correctLabel, pool, itemId, topic, onDone){
+    card.appendChild(el('div','drill-prompt', 'What did you hear?'));
+    const {choices, answerIndex} = mcFrom(correctLabel, pool);
+    const wrap = el('div','choices');
+    choices.forEach((c,i)=>{
+      const b = el('button','choice-btn', `<span class="k">${i+1}</span><span>${c}</span>`);
+      b.addEventListener('click',()=>{
+        if(wrap.dataset.locked) return; wrap.dataset.locked='1';
+        const correct = c===correctLabel;
+        [...wrap.children].forEach((btn,j)=>{ btn.disabled=true; if(j===answerIndex) btn.classList.add(correct?'correct':'reveal-correct'); else if(btn===b) btn.classList.add('wrong'); });
+        finalizeAnswer(card, correct, itemId, topic, correctLabel);
+      });
+      wrap.appendChild(b);
+    });
+    card.appendChild(wrap);
+  }
+
+  function finalizeAnswer(card, correct, itemId, topic, correctLabel){
+    earGrade(correct);
+    const res = srsAnswer(itemId, correct, 1200, topic, 'ear');
+    sessionCount++; if(correct) sessionCorrect++;
+    const banner = el('div','feedback-banner'+(correct?' ok':''));
+    banner.innerHTML = `<div><b>${correct?'Correct':'Missed'}</b>${correct?'':` — <span class="fb-answer">${correctLabel}</span>`}</div><div style="font-family:var(--font-mono);font-size:var(--text-xs)">+${res.xpGain} XP</div>`;
+    card.appendChild(banner);
+    const actions = el('div','drill-actions');
+    const nextBtn = el('button','btn btn-primary', sessionCount<sessionTarget?'Next  ⏎':'Finish  ⏎');
+    nextBtn.addEventListener('click', ()=> sessionCount>=sessionTarget? finishSession() : renderCurrentMode());
+    actions.appendChild(nextBtn);
+    card.appendChild(actions);
+    statUpdate();
+    const eh=(e)=>{ if(e.key==='Enter'){ document.removeEventListener('keydown',eh); nextBtn.click(); } };
+    document.addEventListener('keydown', eh);
+  }
+
+  function renderCurrentMode(){
+    if(mode==='notes') return renderNotes();
+    if(mode==='intervals') return renderIntervals();
+    if(mode==='chords') return renderChords();
+    if(mode==='progressions') return renderProgressions();
+    if(mode==='sing') return renderSing();
+    if(mode==='callresponse') return renderCallResponse();
+    if(mode==='transcribe') return renderTranscribe();
+  }
+
+  function renderNotes(){
+    const rootMidi = 60 + randInt(0,11);
+    const noteName = pcName(rootMidi%12);
+    const play = ()=>Audio_.playMidi(rootMidi,{dur:1.0});
+    playAndNext(play, (card)=>{
+      card.appendChild(el('div','drill-prompt','Identify the note.'));
+      replayBtn(card, play);
+      const pool = PC_SHARP;
+      mcAnswerBlock(card, noteName, pool, 'ear-note-'+(rootMidi%12), 'Ear: Notes', ()=>{});
+    });
+  }
+
+  function renderIntervals(){
+    const rootMidi = 55 + randInt(0,7);
+    const semi = randInt(1,12);
+    const iv = intervalBySemi(semi);
+    const play = ()=>{ Audio_.playMidi(rootMidi,{dur:0.55}); Audio_.playMidi(rootMidi+semi,{dur:0.7,when:0.62}); };
+    playAndNext(play, (card)=>{
+      card.appendChild(el('div','drill-prompt','Identify the interval (root, then upper note).'));
+      replayBtn(card, play);
+      mcAnswerBlock(card, iv.name, INTERVALS.map(x=>x.name), 'ear-interval-'+semi, 'Ear: Intervals', ()=>{});
+    });
+  }
+
+  function renderChords(){
+    const rootMidi = 55 + randInt(0,7);
+    const typeId = rand(CHORD_QUAL_IDS);
+    const ct = chordTypeById(typeId);
+    const midis = ct.formula.map(iv=>rootMidi+iv);
+    const play = ()=>Audio_.playChordMidis(midis,{dur:1.4});
+    playAndNext(play, (card)=>{
+      card.appendChild(el('div','drill-prompt','Identify the chord quality.'));
+      replayBtn(card, play);
+      mcAnswerBlock(card, ct.name, CHORD_QUAL_IDS.map(id=>chordTypeById(id).name), 'ear-chord-'+typeId, 'Ear: Chord quality', ()=>{});
+    });
+  }
+
+  function renderProgressions(){
+    const rootPc = randInt(0,11);
+    const progId = rand(APP_LAB_TEMPLATES);
+    const prog = COMMON_PROGRESSIONS.find(p=>p.id===progId);
+    const midis = [];
+    prog.roman.forEach((roman,i)=>{
+      const degIdx = MAJOR_KEY_ROMAN.indexOf(roman.replace('°',''));
+      const quality = MAJOR_KEY_TRIAD_QUALITY[degIdx];
+      const chordRoot = (rootPc + buildScale(rootPc,'major')[degIdx] - rootPc + buildScale(0,'major')[degIdx])%12; // root offset via major scale degree
+      const actualRoot = (rootPc + [0,2,4,5,7,9,11][degIdx])%12;
+      const ctype = quality==='maj'?'maj':quality==='min'?'min':'dim';
+      const tones = buildChord(actualRoot, ctype).map(pc=>60+pc);
+      midis.push(tones);
+    });
+    const play = ()=>{ midis.forEach((tones,i)=>Audio_.playChordMidis(tones,{dur:0.9,when:i*0.95})); };
+    playAndNext(play, (card)=>{
+      card.appendChild(el('div','drill-prompt','Identify the progression.'));
+      replayBtn(card, play);
+      mcAnswerBlock(card, prog.name, COMMON_PROGRESSIONS.map(p=>p.name), 'ear-prog-'+prog.id, 'Ear: Progressions', ()=>{});
+    });
+  }
+
+  function renderSing(){
+    const host = document.getElementById('ear-host');
+    host.innerHTML='';
+    const targetMidi = 60+randInt(-4,7);
+    const targetFreq = freqFromMidi(targetMidi);
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Ear Trainer · Sing & Match'));
+    card.appendChild(el('div','drill-prompt',`Listen, then sing/hum ${pcName(targetMidi%12)} back.`));
+    const playFn = ()=>Audio_.playMidi(targetMidi,{dur:1.2});
+    replayBtn(card, playFn);
+    const readout = el('div','drill-hint','Press "Start listening" and allow microphone access, then hum the pitch.');
+    card.appendChild(readout);
+    const meter = el('div','progress-track'); meter.style.margin='var(--space-4) 0';
+    const meterFill = el('div','progress-fill'); meterFill.style.width='50%'; meter.appendChild(meterFill);
+    card.appendChild(meter);
+    const btnRow = el('div','drill-actions');
+    const startBtn = el('button','btn btn-primary','Start listening');
+    const manualBtn = el('button','btn btn-ghost','No mic — mark as matched');
+    btnRow.appendChild(startBtn); btnRow.appendChild(manualBtn);
+    card.appendChild(btnRow);
+    let matched=false, holdStart=null;
+    startBtn.addEventListener('click', async ()=>{
+      startBtn.disabled=true; startBtn.textContent='Listening…';
+      const ok = await Audio_.startMic((freq)=>{
+        if(freq<0 || matched) return;
+        const midi = 69+12*Math.log2(freq/440);
+        const cents = (midi - targetMidi)*100;
+        const pct = Math.max(0, Math.min(100, 50 + cents/2));
+        meterFill.style.width = pct+'%';
+        readout.textContent = `Δ ${cents.toFixed(0)} cents from target`;
+        if(Math.abs(cents) < 30){
+          if(!holdStart) holdStart = performance.now();
+          if(performance.now()-holdStart > 500 && !matched){
+            matched = true; Audio_.stopMic();
+            finishSingMatch(card, true, targetMidi);
+          }
+        } else { holdStart = null; }
+      });
+      if(!ok){ readout.textContent='Microphone unavailable — use the manual button.'; startBtn.disabled=false; startBtn.textContent='Start listening'; }
+    });
+    manualBtn.addEventListener('click', ()=>{ Audio_.stopMic(); finishSingMatch(card, true, targetMidi); });
+    host.appendChild(card);
+    playFn();
+  }
+  function finishSingMatch(card, correct, targetMidi){
+    const itemId = 'ear-sing-'+(targetMidi%12);
+    earGrade(correct);
+    const res = srsAnswer(itemId, correct, 1500, 'Ear: Sing & match', 'ear');
+    sessionCount++; if(correct) sessionCorrect++;
+    const banner = el('div','feedback-banner ok');
+    banner.innerHTML = `<div><b>Matched</b></div><div style="font-family:var(--font-mono);font-size:var(--text-xs)">+${res.xpGain} XP</div>`;
+    card.appendChild(banner);
+    const actions = el('div','drill-actions');
+    const nextBtn = el('button','btn btn-primary', sessionCount<sessionTarget?'Next  ⏎':'Finish  ⏎');
+    nextBtn.addEventListener('click', ()=> sessionCount>=sessionTarget? finishSession() : renderCurrentMode());
+    actions.appendChild(nextBtn);
+    card.appendChild(actions);
+    statUpdate();
+  }
+
+  function renderCallResponse(){ renderMelodyRecall('callresponse'); }
+  function renderTranscribe(){ renderMelodyRecall('transcribe'); }
+
+  function renderMelodyRecall(kind){
+    const host = document.getElementById('ear-host');
+    host.innerHTML='';
+    const rootPc = randInt(0,11);
+    const scale = buildScale(rootPc,'major');
+    const len = kind==='callresponse'? 3 : 4;
+    const melodyDeg = Array.from({length:len},()=>randInt(0,6));
+    const melodyMidi = melodyDeg.map(d=>60+scale[d]);
+    const play = ()=>Audio_.playArpeggio(melodyMidi, {noteDur:0.42, gap:0.46});
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic', kind==='callresponse'? 'Ear Trainer · Call & Response':'Ear Trainer · Micro-Transcription'));
+    card.appendChild(el('div','drill-prompt', kind==='callresponse'? `Listen, then echo the ${len}-note phrase by picking scale degrees in order.` : `Listen, then transcribe the ${len}-note melody by picking scale degrees in order.`));
+    card.appendChild(el('div','drill-hint',`Key: ${pcName(rootPc)} major — degrees shown 1–7.`));
+    replayBtn(card, play);
+    const answerRow = el('div','choices'); answerRow.style.gridTemplateColumns='repeat(7,1fr)';
+    const picked = [];
+    const readout = el('div','drill-hint'); readout.style.marginTop='var(--space-3)'; readout.textContent='Your answer: (none yet)';
+    for(let d=0; d<7; d++){
+      const b = el('button','choice-btn'); b.style.justifyContent='center';
+      b.innerHTML = `<span>${d+1}</span>`;
+      b.addEventListener('click', ()=>{
+        if(picked.length>=len) return;
+        picked.push(d);
+        readout.textContent = 'Your answer: ' + picked.map(x=>x+1).join(' - ');
+        Audio_.playMidi(60+scale[d],{dur:0.3,gain:0.15});
+        if(picked.length===len) submitMelody();
+      });
+      answerRow.appendChild(b);
+    }
+    card.appendChild(answerRow);
+    card.appendChild(readout);
+    const resetBtn = el('button','btn btn-ghost btn-sm','Clear'); resetBtn.style.marginTop='var(--space-2)';
+    resetBtn.addEventListener('click', ()=>{ picked.length=0; readout.textContent='Your answer: (none yet)'; });
+    card.appendChild(resetBtn);
+    host.appendChild(card);
+    play();
+
+    function submitMelody(){
+      const correct = picked.every((d,i)=>d===melodyDeg[i]);
+      const itemId = (kind==='callresponse'?'ear-cr-':'ear-mt-')+melodyDeg.join('-');
+      earGrade(correct);
+      const res = srsAnswer(itemId, correct, 2000, kind==='callresponse'?'Ear: Call & response':'Ear: Micro-transcription', 'ear');
+      sessionCount++; if(correct) sessionCorrect++;
+      const banner = el('div','feedback-banner'+(correct?' ok':''));
+      banner.innerHTML = `<div><b>${correct?'Correct':'Missed'}</b>${correct?'':` — correct: <span class="fb-answer">${melodyDeg.map(x=>x+1).join('-')}</span>`}</div><div style="font-family:var(--font-mono);font-size:var(--text-xs)">+${res.xpGain} XP</div>`;
+      card.appendChild(banner);
+      const actions = el('div','drill-actions');
+      const nextBtn = el('button','btn btn-primary', sessionCount<sessionTarget?'Next  ⏎':'Finish  ⏎');
+      nextBtn.addEventListener('click', ()=> sessionCount>=sessionTarget? finishSession() : renderCurrentMode());
+      actions.appendChild(nextBtn);
+      card.appendChild(actions);
+      statUpdate();
+      [...answerRow.children].forEach(b=>b.disabled=true);
+    }
+  }
+
+  function finishSession(){
+    const host = document.getElementById('ear-host');
+    renderDrillSummary(host, {
+      total: sessionTarget, correct: sessionCorrect, accuracy: sessionCorrect/sessionTarget, avgRt: 0,
+    }, {title:'Ear Trainer', onRetry:startSession, onDone:()=>Router.go('home')});
+  }
+
+  function startSession(){
+    sessionCount=0; sessionCorrect=0;
+    const container = document.getElementById('ear-root');
+    container.innerHTML='';
+    renderModeSwitch(container);
+    const host = el('div'); host.id='ear-host'; host.className='drill-shell'; host.style.marginTop='var(--space-5)';
+    container.appendChild(host);
+    renderCurrentMode();
+  }
+
+  function mount(hostContainer){
+    hostContainer.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 03</span><h1 class="view-title">Ear Trainer</h1><p class="view-sub">Notes, intervals, chord quality, progressions, sing-and-match, call-and-response, and micro-transcription — all synthesized live.</p></div>'));
+    const root = el('div'); root.id='ear-root';
+    wrap.appendChild(root);
+    hostContainer.appendChild(wrap);
+    startSession();
+  }
+
+  return { mount, get earScorePct(){ return earScorePct(); } };
+})();
+// =====================================================================
+// RHYTHM LAB — subdivisions, metronome placement, strumming grids,
+// syncopation, odd meters. Real Web Audio scheduling + tap scoring.
+// =====================================================================
+const RhythmLab = (function(){
+  let mode = 'placement';
+  const MODES = [
+    {id:'placement', label:'Metronome Placement'},
+    {id:'subdivision', label:'Subdivisions'},
+    {id:'strum', label:'Strumming Grids'},
+    {id:'syncopation', label:'Syncopation'},
+    {id:'odd', label:'Odd Meters'},
+  ];
+  let bpm = 84;
+
+  const STRUM_PATTERNS = [
+    {name:'Basic D-D-U-U-D-U', pattern:[1,0,1,1,0,1,1,0], labels:['D','','D','U','','U','D','']},
+    {name:'Folk D-DU-UDU', pattern:[1,1,1,0,1,1,0,1], labels:['D','D','U','','U','D','','U']},
+    {name:'Reggae skank (upbeats only)', pattern:[0,0,1,0,0,0,1,0], labels:['','','U','','','','U','']},
+  ];
+  const SYNCOPATION_PATTERNS = [
+    {name:'Charleston', pattern:[1,0,0,1,0,0,0,0]},
+    {name:'Push (anticipated beat 1)', pattern:[0,0,0,1,0,0,0,0], note:'Hit lands on the "and" before the next downbeat.'},
+    {name:'3-3-2 clave feel', pattern:[1,0,0,1,0,0,1,0]},
+  ];
+  const ODD_METERS = [
+    {id:'5-4', label:'5/4', slots:5, groupingQ:'5/4 is most often grouped as...', choices:['3+2 or 2+3','5 equal beats only','4+1','2+2+1'], answer:0},
+    {id:'7-8', label:'7/8', slots:7, groupingQ:'7/8 is most often grouped as...', choices:['2+2+3 (or a variant)','7 equal beats','3+3+1','4+3 only'], answer:0},
+  ];
+
+  function statUpdate(){
+    document.getElementById('stat-combo').textContent = State.combo;
+    document.getElementById('stat-xp').textContent = State.xp;
+    document.getElementById('stat-rank').textContent = masteryRank();
+  }
+
+  function renderModeSwitch(host){
+    const seg = el('div','segmented'); seg.style.flexWrap='wrap';
+    MODES.forEach(m=>{
+      const b = el('button', mode===m.id?'active':'', m.label);
+      b.addEventListener('click',()=>{ mode=m.id; renderCurrentMode(); });
+      seg.appendChild(b);
+    });
+    host.appendChild(seg);
+  }
+
+  function bpmControl(){
+    const row = el('div','bpm-row');
+    const dec = el('button','bpm-btn','−');
+    const num = el('span','bpm-num', bpm);
+    const inc = el('button','bpm-btn','+');
+    dec.addEventListener('click',()=>{ bpm=Math.max(40,bpm-4); num.textContent=bpm; });
+    inc.addEventListener('click',()=>{ bpm=Math.min(220,bpm+4); num.textContent=bpm; });
+    row.appendChild(dec); row.appendChild(num); row.appendChild(inc);
+    row.appendChild(el('span','mini-note','BPM'));
+    return row;
+  }
+
+  // Generic tap-along runner.
+  // slotsPerBar, bars, accentSlots (Set of slot indices considered "on beat"/accented),
+  // activeSlots (Set of slot indices that require a tap), labels (optional array)
+  function runTapAlong(host, {slotsPerBar, bars=4, activeSlots, accentSlots=new Set([0]), labels, onSummary, itemId, topic}){
+    const totalSlots = slotsPerBar*bars;
+    const slotDur = 60/bpm / (slotsPerBar/4); // assumes slotsPerBar subdivides a 4-beat-equivalent bar proportionally
+    const grid = el('div','tap-grid');
+    const cells = [];
+    for(let i=0;i<totalSlots;i++){
+      const c = el('div','tap-cell'+(activeSlots.has(i%slotsPerBar)?'':''), labels? (labels[i%slotsPerBar]||'·') : '·');
+      grid.appendChild(c); cells.push(c);
+    }
+    host.appendChild(grid);
+    const statusLine = el('div','drill-hint'); statusLine.style.marginTop='var(--space-3)'; statusLine.textContent='Press Start, then tap SPACE (or click the pad) on each marked beat.';
+    host.appendChild(statusLine);
+    const pad = el('button','btn btn-primary btn-block','Start');
+    host.appendChild(pad);
+
+    let running=false, t0=0, expected=[], hitCount=0, results=[];
+    function begin(){
+      running=true; pad.textContent='Tapping…'; pad.disabled=true;
+      t0 = Audio_.now()+0.3;
+      expected = [];
+      for(let i=0;i<totalSlots;i++){
+        const t = t0 + i*slotDur;
+        const isActive = activeSlots.has(i%slotsPerBar);
+        if(isActive) expected.push({idx:i, t, hit:false});
+        setTimeout(()=>{ cells[i].classList.add('active'); setTimeout(()=>cells[i].classList.remove('active'), Math.min(140, slotDur*500)); }, Math.max(0,(t-Audio_.now())*1000));
+        Audio_.click(accentSlots.has(i%slotsPerBar), t-Audio_.now());
+      }
+      const totalMs = totalSlots*slotDur*1000 + 400;
+      document.addEventListener('keydown', keyHandler);
+      pad.onclick = onTap;
+      setTimeout(finish, totalMs);
+    }
+    function registerTap(){
+      if(!running) return;
+      const tapT = Audio_.now();
+      let best=null, bestDelta=Infinity;
+      expected.forEach(e=>{
+        if(e.hit) return;
+        const d = Math.abs(e.t-tapT);
+        if(d<bestDelta){ bestDelta=d; best=e; }
+      });
+      if(best && bestDelta < slotDur*0.65){
+        best.hit = true; hitCount++;
+        cells[best.idx].classList.add('hit');
+        results.push(Math.round((tapT-best.t)*1000));
+      }
+    }
+    function onTap(){ registerTap(); }
+    function keyHandler(e){ if(e.code==='Space'){ e.preventDefault(); registerTap(); } }
+    function finish(){
+      running=false;
+      document.removeEventListener('keydown', keyHandler);
+      const total = expected.length;
+      const acc = total? hitCount/total : 0;
+      const avgDelta = results.length? Math.round(results.reduce((a,b)=>a+Math.abs(b),0)/results.length) : 0;
+      statusLine.textContent = `Hit ${hitCount}/${total} beats · avg offset ${avgDelta}ms`;
+      pad.disabled=false; pad.textContent='Try again';
+      pad.onclick = begin;
+      if(itemId){
+        const res = srsAnswer(itemId, acc>=0.75, avgDelta, topic, 'rhythm');
+        statUpdate();
+      }
+      if(onSummary) onSummary({acc, avgDelta, hitCount, total});
+    }
+    pad.addEventListener('click', begin);
+  }
+
+  function renderPlacement(){
+    const container = document.getElementById('rhythm-host');
+    container.innerHTML='';
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Rhythm Lab · Metronome Placement'));
+    card.appendChild(el('div','drill-prompt','Lock in with the click. Tap every quarter-note beat.'));
+    card.appendChild(bpmControl());
+    runTapAlong(card, { slotsPerBar:4, bars:6, activeSlots:new Set([0,1,2,3]), accentSlots:new Set([0]),
+      itemId:'rhythm-placement-'+Math.round(bpm/20), topic:'Rhythm: Placement',
+      onSummary:(s)=>{ if(s.acc>=0.85) bumpBpmCeiling('rhythm-placement', bpm); } });
+    container.appendChild(card);
+  }
+
+  function renderSubdivision(){
+    const container = document.getElementById('rhythm-host');
+    container.innerHTML='';
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Rhythm Lab · Subdivisions'));
+    card.appendChild(el('div','drill-prompt','Choose a subdivision, then tap every subdivided pulse.'));
+    const seg = el('div','segmented');
+    const subs = [{n:1,label:'Quarters'},{n:2,label:'Eighths'},{n:3,label:'Triplets'},{n:4,label:'Sixteenths'}];
+    let chosen = subs[1];
+    subs.forEach(s=>{ const b=el('button', s===chosen?'active':'', s.label); b.addEventListener('click',()=>{ [...seg.children].forEach(x=>x.classList.remove('active')); b.classList.add('active'); chosen=s; rebuild(); }); seg.appendChild(b); });
+    card.appendChild(seg);
+    card.appendChild(bpmControl());
+    const runHost = el('div'); card.appendChild(runHost);
+    function rebuild(){
+      runHost.innerHTML='';
+      const slotsPerBar = 4*chosen.n;
+      const accent = new Set(Array.from({length:4},(_,i)=>i*chosen.n));
+      runTapAlong(runHost, { slotsPerBar, bars:3, activeSlots:new Set(Array.from({length:slotsPerBar},(_,i)=>i)), accentSlots:accent,
+        itemId:'rhythm-subdiv-'+chosen.n, topic:'Rhythm: Subdivisions '+chosen.label,
+        onSummary:(s)=>{ if(s.acc>=0.85) bumpBpmCeiling('rhythm-subdiv-'+chosen.n, bpm); } });
+    }
+    rebuild();
+    container.appendChild(card);
+  }
+
+  function renderStrum(){
+    const container = document.getElementById('rhythm-host');
+    container.innerHTML='';
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Rhythm Lab · Strumming Grids'));
+    card.appendChild(el('div','drill-prompt','Follow the down/up strum pattern in time.'));
+    const seg = el('div','segmented'); seg.style.flexWrap='wrap';
+    let chosen = STRUM_PATTERNS[0];
+    STRUM_PATTERNS.forEach(p=>{ const b=el('button', p===chosen?'active':'', p.name); b.addEventListener('click',()=>{ [...seg.children].forEach(x=>x.classList.remove('active')); b.classList.add('active'); chosen=p; rebuild(); }); seg.appendChild(b); });
+    card.appendChild(seg);
+    card.appendChild(bpmControl());
+    const runHost = el('div'); card.appendChild(runHost);
+    function rebuild(){
+      runHost.innerHTML='';
+      const active = new Set(chosen.pattern.map((v,i)=>v?i:-1).filter(i=>i>=0));
+      runTapAlong(runHost, { slotsPerBar:8, bars:3, activeSlots:active, accentSlots:new Set([0,4]), labels: chosen.labels,
+        itemId:'rhythm-strum-'+chosen.name, topic:'Rhythm: Strumming grids',
+        onSummary:()=>{} });
+    }
+    rebuild();
+    container.appendChild(card);
+  }
+
+  function renderSyncopation(){
+    const container = document.getElementById('rhythm-host');
+    container.innerHTML='';
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Rhythm Lab · Syncopation'));
+    card.appendChild(el('div','drill-prompt','Hit only the marked off-beat accents.'));
+    const seg = el('div','segmented'); seg.style.flexWrap='wrap';
+    let chosen = SYNCOPATION_PATTERNS[0];
+    SYNCOPATION_PATTERNS.forEach(p=>{ const b=el('button', p===chosen?'active':'', p.name); b.addEventListener('click',()=>{ [...seg.children].forEach(x=>x.classList.remove('active')); b.classList.add('active'); chosen=p; rebuild(); }); seg.appendChild(b); });
+    card.appendChild(seg);
+    if(chosen.note) card.appendChild(el('div','mini-note',chosen.note));
+    card.appendChild(bpmControl());
+    const runHost = el('div'); card.appendChild(runHost);
+    function rebuild(){
+      runHost.innerHTML='';
+      const active = new Set(chosen.pattern.map((v,i)=>v?i:-1).filter(i=>i>=0));
+      runTapAlong(runHost, { slotsPerBar:8, bars:3, activeSlots:active, accentSlots:new Set([0]),
+        itemId:'rhythm-sync-'+chosen.name, topic:'Rhythm: Syncopation', onSummary:()=>{} });
+    }
+    rebuild();
+    container.appendChild(card);
+  }
+
+  function renderOdd(){
+    const container = document.getElementById('rhythm-host');
+    container.innerHTML='';
+    const card = el('div','drill-card');
+    card.appendChild(el('span','drill-topic','Rhythm Lab · Odd Meters'));
+    let chosen = ODD_METERS[0];
+    const seg = el('div','segmented');
+    ODD_METERS.forEach(m=>{ const b=el('button', m===chosen?'active':'', m.label); b.addEventListener('click',()=>{ [...seg.children].forEach(x=>x.classList.remove('active')); b.classList.add('active'); chosen=m; rebuild(); }); seg.appendChild(b); });
+    card.appendChild(seg);
+    const qHost = el('div'); card.appendChild(qHost);
+    card.appendChild(bpmControl());
+    const runHost = el('div'); card.appendChild(runHost);
+    function rebuild(){
+      qHost.innerHTML='';
+      qHost.appendChild(el('div','drill-prompt', chosen.groupingQ));
+      const wrap = el('div','choices');
+      const shuffled = shuffleArr(chosen.choices.map((c,i)=>({c,correct:i===chosen.answer})));
+      shuffled.forEach((o,i)=>{
+        const b = el('button','choice-btn', `<span class="k">${i+1}</span><span>${o.c}</span>`);
+        b.addEventListener('click',()=>{
+          if(wrap.dataset.locked) return; wrap.dataset.locked='1';
+          [...wrap.children].forEach((btn,j)=>{ btn.disabled=true; if(shuffled[j].correct) btn.classList.add(o.correct?'correct':'reveal-correct'); else if(btn===b) btn.classList.add('wrong'); });
+          srsAnswer('rhythm-odd-q-'+chosen.id, o.correct, 1000, 'Rhythm: Odd meters', 'rhythm');
+          statUpdate();
+        });
+        wrap.appendChild(b);
+      });
+      qHost.appendChild(wrap);
+      runHost.innerHTML='';
+      const active = new Set(Array.from({length:chosen.slots},(_,i)=>i));
+      runTapAlong(runHost, { slotsPerBar:chosen.slots, bars:3, activeSlots:active, accentSlots:new Set([0]),
+        itemId:'rhythm-odd-tap-'+chosen.id, topic:'Rhythm: Odd meters', onSummary:()=>{} });
+    }
+    rebuild();
+    container.appendChild(card);
+  }
+
+  function renderCurrentMode(){
+    if(mode==='placement') return renderPlacement();
+    if(mode==='subdivision') return renderSubdivision();
+    if(mode==='strum') return renderStrum();
+    if(mode==='syncopation') return renderSyncopation();
+    if(mode==='odd') return renderOdd();
+  }
+
+  function mount(hostContainer){
+    hostContainer.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 04</span><h1 class="view-title">Rhythm Lab</h1><p class="view-sub">Subdivisions, metronome placement, strumming grids, syncopation, and odd meters — with real-time tap scoring.</p></div>'));
+    const modeHost = el('div'); wrap.appendChild(modeHost);
+    renderModeSwitch(modeHost);
+    const host = el('div'); host.id='rhythm-host'; host.className='drill-shell'; host.style.marginTop='var(--space-5)';
+    wrap.appendChild(host);
+    hostContainer.appendChild(wrap);
+    renderCurrentMode();
+  }
+
+  return { mount };
+})();
+// =====================================================================
+// TECHNIQUE GYM — BPM ratchet + clean-rep thresholds, metronome-driven
+// =====================================================================
+const TECHNIQUE_DRILLS = [
+  {id:'chromatic', name:'Chromatic Warmups', desc:'1-2-3-4 finger pattern moving chromatically across all six strings. Strict alternate picking, no buzzing.', startBpm:60, targetBpm:160, inc:4, repsNeeded:3},
+  {id:'spider', name:'Spider Drills', desc:'Skipping finger patterns (1-3-2-4 style) across adjacent strings — builds independence and prevents finger collisions.', startBpm:55, targetBpm:140, inc:4, repsNeeded:3},
+  {id:'altpick', name:'Alternate Picking', desc:'Strict down-up picking through a 3-notes-per-string scale run. Every note picked, no exceptions.', startBpm:70, targetBpm:200, inc:5, repsNeeded:3},
+  {id:'legato', name:'Legato', desc:'Hammer-ons and pull-offs through a scale run with a single pick attack per string. Focus on even volume.', startBpm:70, targetBpm:190, inc:5, repsNeeded:3},
+  {id:'stringx', name:'String Crossing', desc:'Arpeggiated patterns that skip strings — clean muting of unplayed strings is the goal, not just speed.', startBpm:60, targetBpm:150, inc:4, repsNeeded:3},
+  {id:'burst', name:'Burst Training', desc:'Short 4-8 note high-speed bursts followed by rest. Trains fast-twitch picking without long-term fatigue.', startBpm:90, targetBpm:220, inc:6, repsNeeded:2},
+  {id:'fingerindep', name:'Finger Independence', desc:'Isolate finger pairs (1-2, 2-3, 3-4, 1-4) with hammer/pull combinations while other fingers stay still.', startBpm:55, targetBpm:140, inc:3, repsNeeded:3},
+  {id:'arpeggio', name:'Arpeggio Drills', desc:'Sweep or economy-picked arpeggio shapes across 3-5 strings. Mute aggressively for clean note separation.', startBpm:60, targetBpm:170, inc:4, repsNeeded:3},
+  {id:'fingerstyle', name:'Fingerstyle Thumb/Melody Independence', desc:'Steady alternating-bass thumb pattern under an independent picked melody on the top strings.', startBpm:60, targetBpm:130, inc:3, repsNeeded:3},
+];
+
+const TechniqueGym = (function(){
+  let metro = null;
+  function ensureMetro(){ if(!metro) metro = Audio_.makeMetronome(); return metro; }
+
+  function techBpm(drillId, startBpm){
+    if(!State.techBpmCurrent) State.techBpmCurrent = {};
+    if(State.techBpmCurrent[drillId]===undefined) State.techBpmCurrent[drillId] = startBpm;
+    return State.techBpmCurrent[drillId];
+  }
+
+  function renderDrillList(container){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 05</span><h1 class="view-title">Technique Gym</h1><p class="view-sub">Metronome-driven drills with clean-rep thresholds. Tempo only increases after you confirm clean reps.</p></div>'));
+    const grid = el('div','grid grid-3');
+    TECHNIQUE_DRILLS.forEach(d=>{
+      const cur = techBpm(d.id, d.startBpm);
+      const ceiling = State.bpmCeilings[d.id]||d.startBpm;
+      const tile = el('button','mod-tile');
+      tile.innerHTML = `<h3>${d.name}</h3><p>${d.desc}</p><div class="mod-meta"><span>Now ${cur} bpm</span><span>Ceiling ${ceiling}</span></div>`;
+      tile.addEventListener('click', ()=>renderDrillDetail(container, d));
+      grid.appendChild(tile);
+    });
+    const enduranceTile = el('button','mod-tile');
+    enduranceTile.innerHTML = `<h3>Endurance Mode</h3><p>Sustained metronome session at a fixed tempo — builds stamina and consistency over time, not raw speed.</p><div class="mod-meta"><span>Timer-based</span><span>&nbsp;</span></div>`;
+    enduranceTile.addEventListener('click', ()=>renderEndurance(container));
+    grid.appendChild(enduranceTile);
+    wrap.appendChild(grid);
+    container.appendChild(wrap);
+  }
+
+  function renderDrillDetail(container, d){
+    container.innerHTML='';
+    const wrap = el('div','route-fade drill-shell');
+    const back = el('button','btn btn-ghost btn-sm','← All drills');
+    back.addEventListener('click', ()=>renderDrillList(container));
+    wrap.appendChild(back);
+    const card = el('div','card'); card.style.marginTop='var(--space-4)';
+    card.innerHTML = `<span class="eyebrow">Technique Gym</span><h2 class="view-title">${d.name}</h2><p class="view-sub" style="margin-bottom:var(--space-5)">${d.desc}</p>`;
+
+    const metroWrap = el('div','metronome');
+    const dial = el('div','metro-dial', techBpm(d.id,d.startBpm));
+    metroWrap.appendChild(dial);
+    const lights = el('div','beat-lights');
+    for(let i=0;i<4;i++) lights.appendChild(el('div','beat-light'+(i===0?' accent':'')));
+    metroWrap.appendChild(lights);
+    const bpmRow = el('div','bpm-row');
+    const dec = el('button','bpm-btn','−'); const bpmNum = el('span','bpm-num',techBpm(d.id,d.startBpm)); const inc = el('button','bpm-btn','+');
+    const m = ensureMetro();
+    function setBpm(v){ State.techBpmCurrent[d.id]=v; bpmNum.textContent=v; dial.textContent=v; m.setBpm(v); }
+    dec.addEventListener('click',()=>setBpm(Math.max(30,techBpm(d.id,d.startBpm)-2)));
+    inc.addEventListener('click',()=>setBpm(Math.min(260,techBpm(d.id,d.startBpm)+2)));
+    bpmRow.appendChild(dec); bpmRow.appendChild(bpmNum); bpmRow.appendChild(inc);
+    metroWrap.appendChild(bpmRow);
+    const playBtn = el('button','btn btn-primary','▶ Start metronome');
+    let running=false;
+    m.setBpm(techBpm(d.id,d.startBpm));
+    m.onBeatCb((beatIdx)=>{
+      [...lights.children].forEach((l,i)=>l.classList.toggle('on', i===beatIdx));
+      dial.classList.remove('beat'); void dial.offsetWidth; dial.classList.add('beat');
+    });
+    playBtn.addEventListener('click',()=>{
+      running = !running;
+      if(running){ m.start(); playBtn.textContent='■ Stop metronome'; } else { m.stop(); playBtn.textContent='▶ Start metronome'; [...lights.children].forEach(l=>l.classList.remove('on')); }
+    });
+    metroWrap.appendChild(playBtn);
+    card.appendChild(metroWrap);
+
+    card.appendChild(el('hr','div'));
+
+    const repRow = el('div');
+    repRow.appendChild(el('div','eyebrow',`Clean-rep threshold: ${d.repsNeeded} in a row to raise tempo by ${d.inc} bpm`));
+    const streakLine = el('div','drill-hint');
+    let streak = 0;
+    function refreshStreak(){ streakLine.innerHTML = `Clean-rep streak: <b>${streak}</b> / ${d.repsNeeded} · Ceiling reached: <b>${State.bpmCeilings[d.id]||d.startBpm} bpm</b>`; }
+    refreshStreak();
+    repRow.appendChild(streakLine);
+    const btnRow = el('div','drill-actions');
+    const cleanBtn = el('button','btn btn-primary','Mark rep clean');
+    const missBtn = el('button','btn btn-ghost','Mark rep missed');
+    cleanBtn.addEventListener('click', ()=>{
+      streak++;
+      bumpBpmCeiling(d.id, techBpm(d.id,d.startBpm));
+      if(streak>=d.repsNeeded){
+        streak=0;
+        const next = Math.min(d.targetBpm, techBpm(d.id,d.startBpm)+d.inc);
+        setBpm(next);
+        bumpBpmCeiling(d.id, next);
+        showToast(`Tempo up — ${d.name} now at ${next} BPM`);
+        State.xp += 6; document.getElementById('stat-xp').textContent = State.xp;
+      }
+      refreshStreak();
+    });
+    missBtn.addEventListener('click', ()=>{ streak=0; refreshStreak(); });
+    btnRow.appendChild(cleanBtn); btnRow.appendChild(missBtn);
+    repRow.appendChild(btnRow);
+    card.appendChild(repRow);
+
+    wrap.appendChild(card);
+    container.appendChild(wrap);
+  }
+
+  function renderEndurance(container){
+    container.innerHTML='';
+    const wrap = el('div','route-fade drill-shell');
+    const back = el('button','btn btn-ghost btn-sm','← All drills');
+    back.addEventListener('click', ()=>renderDrillList(container));
+    wrap.appendChild(back);
+    const card = el('div','card'); card.style.marginTop='var(--space-4)';
+    card.innerHTML = `<span class="eyebrow">Technique Gym</span><h2 class="view-title">Endurance Mode</h2><p class="view-sub" style="margin-bottom:var(--space-5)">Pick a duration and a comfortable tempo, then play continuously through the whole timer without stopping.</p>`;
+    const seg = el('div','segmented');
+    let minutes = 5;
+    [3,5,10,15].forEach(mn=>{ const b=el('button', mn===minutes?'active':'', mn+' min'); b.addEventListener('click',()=>{ [...seg.children].forEach(x=>x.classList.remove('active')); b.classList.add('active'); minutes=mn; }); seg.appendChild(b); });
+    card.appendChild(seg);
+    const metroWrap = el('div','metronome'); metroWrap.style.marginTop='var(--space-5)';
+    let bpm = 90;
+    const dial = el('div','metro-dial', bpm); metroWrap.appendChild(dial);
+    const bpmRow = el('div','bpm-row');
+    const dec = el('button','bpm-btn','−'); const bpmNum = el('span','bpm-num',bpm); const inc = el('button','bpm-btn','+');
+    const m = ensureMetro(); m.setBpm(bpm);
+    dec.addEventListener('click',()=>{ bpm=Math.max(30,bpm-4); bpmNum.textContent=bpm; dial.textContent=bpm; m.setBpm(bpm); });
+    inc.addEventListener('click',()=>{ bpm=Math.min(220,bpm+4); bpmNum.textContent=bpm; dial.textContent=bpm; m.setBpm(bpm); });
+    bpmRow.appendChild(dec); bpmRow.appendChild(bpmNum); bpmRow.appendChild(inc);
+    metroWrap.appendChild(bpmRow);
+    const timerDisplay = el('div','drill-prompt mono','00:00');
+    metroWrap.appendChild(timerDisplay);
+    const startBtn = el('button','btn btn-primary','▶ Start session');
+    metroWrap.appendChild(startBtn);
+    m.onBeatCb(()=>{ dial.classList.remove('beat'); void dial.offsetWidth; dial.classList.add('beat'); });
+    let interval=null, elapsed=0;
+    startBtn.addEventListener('click',()=>{
+      if(interval){ clearInterval(interval); interval=null; m.stop(); startBtn.textContent='▶ Start session'; return; }
+      m.start(); startBtn.textContent='■ Stop';
+      const totalSec = minutes*60;
+      interval = setInterval(()=>{
+        elapsed++;
+        const mm = String(Math.floor(elapsed/60)).padStart(2,'0'), ss=String(elapsed%60).padStart(2,'0');
+        timerDisplay.textContent = mm+':'+ss;
+        if(elapsed>=totalSec){
+          clearInterval(interval); interval=null; m.stop();
+          startBtn.textContent='▶ Start session';
+          State.xp += 25; document.getElementById('stat-xp').textContent = State.xp;
+          bumpBpmCeiling('endurance', bpm);
+          showToast(`Endurance session complete — ${minutes} min at ${bpm} BPM`);
+        }
+      },1000);
+    });
+    card.appendChild(metroWrap);
+    wrap.appendChild(card);
+    container.appendChild(wrap);
+  }
+
+  function mount(container){ renderDrillList(container); }
+  return { mount };
+})();
+// =====================================================================
+// STYLE LANES — Metal Lead, Jazz Harmony, Fingerstyle/Chord Melody
+// =====================================================================
+function buildMetalLeadPool(){
+  const items = [];
+  const gp = GENRE_PHRASE_STUDIES.find(g=>g.id==='metal-sequence');
+  items.push({ id:'style-metal-seq', topic:'Metal Lead: Sequences', type:'mc', prompt:gp.q,
+    ...mcFrom(gp.choices[gp.answer], gp.choices) });
+  items.push({ id:'style-metal-altpick', topic:'Metal Lead: Alternate picking', type:'mc',
+    prompt:'Strict alternate picking through a fast scale run means every note is picked...',
+    ...mcFrom('Alternating down-up strokes, no exceptions', ['Alternating down-up strokes, no exceptions','All downstrokes','Using hammer-ons only','Sweeping across strings']) });
+  items.push({ id:'style-metal-legato', topic:'Metal Lead: Legato', type:'mc',
+    prompt:'A legato metal run minimizes pick attacks by relying mainly on...',
+    ...mcFrom('Hammer-ons and pull-offs', ['Hammer-ons and pull-offs','Palm muting','Sweep picking only','Tapping only']) });
+  items.push({ id:'style-metal-tremolo', topic:'Metal Lead: Tremolo picking', type:'mc',
+    prompt:'Tremolo picking is best described as...',
+    ...mcFrom('Extremely fast, sustained alternate picking on one note or a short group', ['Extremely fast, sustained alternate picking on one note or a short group','A vibrato bar technique only','A slow arpeggio sweep','A tapping-only technique']) });
+  items.push({ id:'style-metal-shift', topic:'Metal Lead: Position shifts', type:'mc',
+    prompt:'Shifting scale position mid-run (e.g. 3nps box to the next box up) is used mainly to...',
+    ...mcFrom('Extend range and access new notes without stalling the pattern', ['Extend range and access new notes without stalling the pattern','Change the key','Slow down the tempo','Avoid using the pinky']) });
+  for(let i=0;i<3;i++){
+    const rootPc = randInt(0,11);
+    const scaleId = rand(['nat_minor','harm_minor','phryg_dom']);
+    const notes = buildScale(rootPc, scaleId).map(pc=>pcName(pc));
+    const degreeIdx = randInt(1,notes.length-1);
+    const correct = notes[degreeIdx];
+    items.push({ id:`style-metal-scale-${i}`, topic:'Metal Lead: Scale vocabulary', type:'mc', promptMono:true,
+      prompt:`3nps sequence in ${pcName(rootPc)} ${scaleById(scaleId).name}: what is note #${degreeIdx+1}?`,
+      ...mcFrom(correct, PC_SHARP) });
+  }
+  return items;
+}
+
+function buildJazzHarmonyPool(){
+  const items = [];
+  ['maj7','dom7','min7','m7b5','dim7'].forEach((tid,i)=>{
+    const rootPc = randInt(0,11);
+    const ct = chordTypeById(tid);
+    const tones = buildChord(rootPc, tid).map(pc=>pcName(pc));
+    const correct = tones.join(' - ');
+    const pool = [correct];
+    while(pool.length<4){
+      const fakeRoot = randInt(0,11), fakeType = rand(CHORD_TYPES);
+      const fake = buildChord(fakeRoot, fakeType.id).map(pc=>pcName(pc)).join(' - ');
+      if(!pool.includes(fake)) pool.push(fake);
+    }
+    const choices = shuffleArr(pool);
+    items.push({ id:'style-jazz-7th-'+i, topic:'Jazz Harmony: 7th chords', type:'mc', promptMono:true,
+      prompt:`Spell ${pcName(rootPc)}${ct.symbol}.`, choices, answerIndex: choices.indexOf(correct) });
+  });
+  for(let i=0;i<4;i++){
+    const rootPc = randInt(0,11);
+    const type = rand(['maj','min']);
+    const tones = buildChord(rootPc, type);
+    const invIdx = randInt(0,2);
+    const invNames = ['Root position','First inversion','Second inversion'];
+    items.push({ id:'style-jazz-inv-'+i, topic:'Jazz Harmony: Inversions', type:'mc', promptMono:true,
+      prompt:`A ${pcName(rootPc)} ${type==='maj'?'major':'minor'} triad with ${pcName(tones[invIdx])} in the bass is in...`,
+      ...mcFrom(invNames[invIdx], invNames) });
+  }
+  for(let i=0;i<5;i++){
+    const rootPc = randInt(0,11);
+    const tokens = progressionTokens(rootPc, ['ii','V','I'], true);
+    items.push({ id:'style-jazz-iivi-'+i, topic:'Jazz Harmony: ii-V-I', type:'typed', promptMono:true,
+      prompt:`Type the ii7 - V7 - Imaj7 progression in the key of ${pcName(rootPc)} major.`,
+      placeholder:'e.g. Dm7 G7 Cmaj7',
+      answerText: chordAnswerVariants(tokens) });
+  }
+  items.push({ id:'style-jazz-voiceleading', topic:'Jazz Harmony: Voice leading', type:'mc',
+    prompt:'In a ii-V-I, the smoothest voice leading typically moves the 7th of ii7 to the...',
+    ...mcFrom('3rd of V7 (both fall by a half step or stay close)', ['3rd of V7 (both fall by a half step or stay close)','Root of I','5th of ii7','9th of V7']) });
+  items.push({ id:'style-jazz-shell', topic:'Jazz Harmony: Shell voicings', type:'mc',
+    prompt:'A "shell voicing" for a 7th chord typically uses only...',
+    ...mcFrom('The root, 3rd, and 7th', ['The root, 3rd, and 7th','All four chord tones plus extensions','The 5th and 9th only','Open strings only']) });
+  return items;
+}
+
+function buildFingerstylePool(){
+  const items = [];
+  const gp = GENRE_PHRASE_STUDIES.find(g=>g.id==='fingerstyle-travis');
+  items.push({ id:'style-fs-travis', topic:'Fingerstyle: Alternating bass', type:'mc', prompt:gp.q, ...mcFrom(gp.choices[gp.answer], gp.choices) });
+  items.push({ id:'style-fs-thumb', topic:'Fingerstyle: Thumb independence', type:'mc',
+    prompt:'In chord-melody / fingerstyle playing, the thumb\'s main job is usually to...',
+    ...mcFrom('Maintain a steady, independent bass pulse under the melody', ['Maintain a steady, independent bass pulse under the melody','Play the melody exclusively','Only strum full chords','Mute all strings']) });
+  items.push({ id:'style-fs-melody', topic:'Fingerstyle: Melody on top', type:'mc',
+    prompt:'"Melody on top" in chord-melody arranging means the melody note is voiced...',
+    ...mcFrom('As the highest note of the chord shape', ['As the highest note of the chord shape','As the lowest note','Doubled an octave below the bass','Removed entirely']) });
+  items.push({ id:'style-fs-innervoice', topic:'Fingerstyle: Inner-voice movement', type:'mc',
+    prompt:'Moving an inner voice (e.g. from a 6th to a 5th) while outer voices hold still is used to...',
+    ...mcFrom('Add harmonic motion and interest without changing the melody or bass', ['Add harmonic motion and interest without changing the melody or bass','Change the key','Simplify the chord shape','Speed up the tempo']) });
+  return items;
+}
+
+function progressionTokens(rootPc, romanList, useSevenths){
+  const majorSteps = [0,2,4,5,7,9,11];
+  return romanList.map(roman=>{
+    const clean = roman.replace('°','').replace('+','');
+    const degIdx = MAJOR_KEY_ROMAN.indexOf(clean);
+    const actualRoot = (rootPc + majorSteps[degIdx])%12;
+    const qId = useSevenths ? MAJOR_KEY_SEVENTH_QUALITY[degIdx] : (MAJOR_KEY_TRIAD_QUALITY[degIdx]==='dim'?'dim':MAJOR_KEY_TRIAD_QUALITY[degIdx]);
+    const symbol = useSevenths ? chordTypeById(qId).symbol : (qId==='maj'?'':qId==='min'?'m':'dim');
+    return pcName(actualRoot)+symbol;
+  });
+}
+function progressionAnswerString(rootPc, romanList, useSevenths){
+  return progressionTokens(rootPc, romanList, useSevenths).join(' ');
+}
+function normalizeChordToken(s){ return s.trim().replace(/[,\-–]/g,' ').split(/\s+/).filter(Boolean); }
+function chordAnswerVariants(tokens){
+  return [tokens.join(' '), tokens.join(' - '), tokens.join(', '), tokens.join('-'), tokens.join(',')];
+}
+
+const StyleLanes = (function(){
+  const LANES = [
+    {id:'metal', name:'Metal Lead', desc:'Alternate picking, legato, sequences, tremolo, position shifts.', build: buildMetalLeadPool, techniqueLinks:['altpick','legato','burst']},
+    {id:'jazz', name:'Jazz Harmony', desc:'Triads, inversions, seventh chords, ii-V-I, voice leading, shell voicings.', build: buildJazzHarmonyPool, techniqueLinks:['arpeggio']},
+    {id:'fingerstyle', name:'Fingerstyle / Chord Melody', desc:'Alternating bass, thumb independence, melody-on-top, inner-voice movement.', build: buildFingerstylePool, techniqueLinks:['fingerstyle']},
+  ];
+
+  function mount(container){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 06</span><h1 class="view-title">Style Lanes</h1><p class="view-sub">Focused vocabulary and drills for three core styles.</p></div>'));
+    const grid = el('div','grid grid-3');
+    LANES.forEach(lane=>{
+      const tile = el('button','mod-tile');
+      tile.innerHTML = `<h3>${lane.name}</h3><p>${lane.desc}</p><div class="mod-meta"><span>Style quiz</span><span>→</span></div>`;
+      tile.addEventListener('click', ()=>runLane(container, lane));
+      grid.appendChild(tile);
+    });
+    wrap.appendChild(grid);
+    container.appendChild(wrap);
+  }
+
+  function runLane(container, lane){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    const back = el('button','btn btn-ghost btn-sm','← Style lanes');
+    back.addEventListener('click', ()=>mount(container));
+    wrap.appendChild(back);
+    wrap.appendChild(el('div','view-head', `<div><span class="eyebrow">Style Lane</span><h1 class="view-title">${lane.name}</h1></div>`));
+    const host = el('div'); host.id='lane-host';
+    wrap.appendChild(host);
+    container.appendChild(wrap);
+    launchLaneQueue(lane);
+  }
+
+  function launchLaneQueue(lane){
+    const host = document.getElementById('lane-host');
+    const items = shuffleArr(lane.build()).slice(0,10);
+    // patch typed items that need token-checking to a simple normalized equality
+    items.forEach(it=>{
+      if(it.type==='typed' && it.checkTokens){
+        it.answerText = it.answerText; // exact fallback already set
+      }
+    });
+    runDrill({
+      container: host, queue: items, moduleId: 'style-'+lane.id, title: lane.name,
+      onComplete: (summary)=>renderDrillSummary(host, summary, {title:lane.name+' lane', onRetry:()=>launchLaneQueue(lane), onDone:()=>Router.go('home')}),
+    });
+  }
+
+  return { mount };
+})();
+// =====================================================================
+// APPLICATION LAB — random-key progressions, ii-V-I, I-V-vi-IV, modal
+// vamps, triad comping, scale-over-chord, genre phrase studies
+// =====================================================================
+function buildProgressionDrillItems(templateId, useSevenths, count=8){
+  const items = [];
+  const prog = COMMON_PROGRESSIONS.find(p=>p.id===templateId);
+  for(let i=0;i<count;i++){
+    const rootPc = randInt(0,11);
+    const tokens = progressionTokens(rootPc, prog.roman.map(r=>r), useSevenths);
+    items.push({ id:`app-${templateId}-${rootPc}-${i}`, topic:`Application: ${prog.name}`, type:'typed', promptMono:true,
+      prompt:`Key of ${pcName(rootPc)} major — spell out ${prog.roman.join('-')}.`,
+      placeholder: tokens.map(()=>'').join(' '),
+      answerText: chordAnswerVariants(tokens) });
+  }
+  return items;
+}
+
+const MODAL_VAMP_QUALITY = {major:'Major 7th', dorian:'Minor 7th', phrygian:'Minor 7th (with b2 color)', lydian:'Major 7th (#11 color)', mixolydian:'Dominant 7th', nat_minor:'Minor 7th', locrian:'Half-diminished 7th'};
+function buildModalVampPool(){
+  const items = [];
+  Object.entries(MODAL_VAMP_QUALITY).forEach(([mid,quality],i)=>{
+    const rootPc = randInt(0,11);
+    items.push({ id:'app-modal-'+mid, topic:'Application: Modal vamps', type:'mc', promptMono:true,
+      prompt:`A vamp on ${pcName(rootPc)} ${MODE_DISPLAY[mid]} typically centers on a tonic chord that is a...`,
+      ...mcFrom(quality, Object.values(MODAL_VAMP_QUALITY)) });
+  });
+  return items;
+}
+
+function buildTriadCompingPool(){
+  const items = [];
+  const invNames = ['Root position','First inversion','Second inversion'];
+  for(let i=0;i<8;i++){
+    const rootPc = randInt(0,11);
+    const type = rand(['maj','min']);
+    const tones = buildChord(rootPc, type);
+    const invIdx = randInt(0,2);
+    items.push({ id:'app-comp-'+i, topic:'Application: Triad comping', type:'mc', promptMono:true,
+      prompt:`Comping a ${pcName(rootPc)} ${type==='maj'?'major':'minor'} triad with ${pcName(tones[invIdx])} in the bass — which inversion?`,
+      ...mcFrom(invNames[invIdx], invNames) });
+  }
+  return items;
+}
+
+const SCALE_OVER_CHORD_MAP = {maj7:'Ionian (Major)', dom7:'Mixolydian', min7:'Dorian', m7b5:'Locrian', dim7:'Whole-Half Diminished', minMaj7:'Melodic Minor'};
+function buildScaleOverChordPool(){
+  const items = [];
+  Object.entries(SCALE_OVER_CHORD_MAP).forEach(([tid,scaleName],i)=>{
+    const rootPc = randInt(0,11);
+    const ct = chordTypeById(tid);
+    items.push({ id:'app-scale-'+tid, topic:'Application: Scale over chord', type:'mc', promptMono:true,
+      prompt:`Over a ${pcName(rootPc)}${ct.symbol} chord, the most idiomatic scale choice is...`,
+      ...mcFrom(scaleName, Object.values(SCALE_OVER_CHORD_MAP)) });
+  });
+  return items;
+}
+
+function buildGenrePhrasePool(){
+  return GENRE_PHRASE_STUDIES.map(g=>({
+    id:'app-genre-'+g.id, topic:'Application: Genre phrase studies', type:'mc',
+    prompt: g.title+' — '+g.body, promptMono:false,
+    ...mcFrom(g.choices[g.answer], g.choices)
+  }));
+}
+
+const ApplicationLab = (function(){
+  const TASKS = [
+    {id:'randkey', name:'Random-Key Progressions', desc:'I-V-vi-IV and I-vi-IV-V in random keys — spell out the actual chords.', build:()=>shuffleArr([...buildProgressionDrillItems('I-V-vi-IV', false,5), ...buildProgressionDrillItems('I-vi-IV-V', false,5)])},
+    {id:'iivi', name:'ii-V-I in Multiple Keys', desc:'The jazz turnaround, cycled through many keys with 7th chords.', build:()=>buildProgressionDrillItems('ii-V-I', true, 10)},
+    {id:'ivvi', name:'I-V-vi-IV Drills', desc:'The four-chord pop progression, spelled in random keys.', build:()=>buildProgressionDrillItems('I-V-vi-IV', false, 10)},
+    {id:'modal', name:'Modal Vamps', desc:'Identify the tonic chord quality that defines a modal vamp.', build: buildModalVampPool},
+    {id:'comping', name:'Triad Comping', desc:'Identify triad inversions by bass note for comping.', build: buildTriadCompingPool},
+    {id:'scaleover', name:'Scale-over-Chord Tasks', desc:'Match the idiomatic scale to the chord quality.', build: buildScaleOverChordPool},
+    {id:'genre', name:'Genre Phrase Studies', desc:'Short studies on blues, jazz, metal, country, and fingerstyle phrasing devices.', build: buildGenrePhrasePool},
+  ];
+
+  function mount(container){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 07</span><h1 class="view-title">Application Lab</h1><p class="view-sub">Turn theory into fretboard-ready vocabulary across keys, modes, and genres.</p></div>'));
+    const grid = el('div','grid grid-3');
+    TASKS.forEach(task=>{
+      const tile = el('button','mod-tile');
+      tile.innerHTML = `<h3>${task.name}</h3><p>${task.desc}</p><div class="mod-meta"><span>Drill</span><span>→</span></div>`;
+      tile.addEventListener('click', ()=>run(container, task));
+      grid.appendChild(tile);
+    });
+    wrap.appendChild(grid);
+    container.appendChild(wrap);
+  }
+
+  function run(container, task){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    const back = el('button','btn btn-ghost btn-sm','← Application Lab');
+    back.addEventListener('click', ()=>mount(container));
+    wrap.appendChild(back);
+    wrap.appendChild(el('div','view-head', `<div><span class="eyebrow">Application Lab</span><h1 class="view-title">${task.name}</h1></div>`));
+    const host = el('div'); host.id='applab-host';
+    wrap.appendChild(host);
+    container.appendChild(wrap);
+    launch(task);
+  }
+  function launch(task){
+    const host = document.getElementById('applab-host');
+    const items = task.build();
+    runDrill({ container: host, queue: items, moduleId:'applab', title: task.name,
+      onComplete:(summary)=>renderDrillSummary(host, summary, {title:task.name, onRetry:()=>launch(task), onDone:()=>Router.go('home')}) });
+  }
+
+  return { mount };
+})();
+// =====================================================================
+// DAILY PRACTICE ENGINE — routines, cram mode, 14/30-day curricula,
+// recovery day, auto-generated workout, boss tests & checkpoints
+// =====================================================================
+let THEORY_POOLS = null;
+function getTheoryPools(){ if(!THEORY_POOLS) THEORY_POOLS = buildAllTheoryPools(); return THEORY_POOLS; }
+
+function allQuizPoolsFlat(){
+  const t = getTheoryPools();
+  const pools = Object.values(t).map(p=>p.items);
+  pools.push(buildMetalLeadPool(), buildJazzHarmonyPool(), buildFingerstylePool());
+  pools.push(buildModalVampPool(), buildTriadCompingPool(), buildScaleOverChordPool(), buildGenrePhrasePool());
+  return pools.flat();
+}
+
+function pickFromPools(names, count){
+  const t = getTheoryPools();
+  const items = [];
+  names.forEach(n=>{ if(t[n]) items.push(...t[n].items); });
+  return shuffleArr(items).slice(0,count);
+}
+
+function weakReviewItems(count){
+  const weak = weakestTopics(8).map(w=>w.topic);
+  const all = allQuizPoolsFlat();
+  const matched = all.filter(it=>weak.includes(it.topic));
+  const pool = matched.length>=count ? matched : all;
+  return shuffleArr(pool).slice(0,count);
+}
+
+const CHECKPOINTS = [
+  {id:'cp1', name:'Foundations Checkpoint', threshold:0.7},
+  {id:'cp2', name:'Harmony Checkpoint', threshold:0.72},
+  {id:'cp3', name:'Application Checkpoint', threshold:0.75},
+  {id:'cp4', name:'Mastery Checkpoint', threshold:0.8},
+];
+
+function buildDurationPlan(minutes){
+  if(minutes===30){
+    return [
+      {type:'quiz', title:'Theory Warm-up', itemsFn:()=>pickFromPools(['alphabet','intervals'],8)},
+      {type:'module', title:'Fretboard Sprint', moduleId:'fretboard', note:'Run a 15-note session — favor natural notes if you are early in training.'},
+      {type:'module', title:'Ear Trainer', moduleId:'ear', note:'Run a 10-item Notes/Intervals session.'},
+      {type:'quiz', title:'Application Review', itemsFn:()=>pickFromPools(['diatonic'],6)},
+      {type:'quiz', title:'Cumulative Mini-Review', itemsFn:()=>weakReviewItems(5)},
+    ];
+  }
+  if(minutes===60){
+    return [
+      {type:'quiz', title:'Theory Warm-up', itemsFn:()=>pickFromPools(['alphabet','intervals','scales'],10)},
+      {type:'module', title:'Fretboard Sprint', moduleId:'fretboard', note:'20-note session — try Find-it mode this time.'},
+      {type:'module', title:'Ear Trainer', moduleId:'ear', note:'Cover Notes, Intervals, and Chord Quality.'},
+      {type:'module', title:'Rhythm Lab', moduleId:'rhythm', note:'Run a subdivision or strumming grid tap-along.'},
+      {type:'quiz', title:'Diatonic Harmony Drill', itemsFn:()=>pickFromPools(['diatonic','triads'],8)},
+      {type:'module', title:'Technique Gym', moduleId:'technique', note:'Push one drill toward its next tempo threshold.'},
+      {type:'quiz', title:'Cumulative Review', itemsFn:()=>weakReviewItems(8)},
+    ];
+  }
+  return [ // 120
+    {type:'quiz', title:'Theory Deep Dive', itemsFn:()=>pickFromPools(['alphabet','intervals','scales','degrees'],14)},
+    {type:'module', title:'Fretboard Sprint', moduleId:'fretboard', note:'Full chromatic session, 25+ notes across the whole neck.'},
+    {type:'module', title:'Ear Trainer', moduleId:'ear', note:'Cover all seven ear-training modes at least once.'},
+    {type:'module', title:'Rhythm Lab', moduleId:'rhythm', note:'Run subdivisions, syncopation, and one odd-meter pattern.'},
+    {type:'quiz', title:'Harmony Deep Dive', itemsFn:()=>pickFromPools(['diatonic','minorFamily','triads','sevenths'],14)},
+    {type:'module', title:'Technique Gym', moduleId:'technique', note:'Work two drills toward new tempo ceilings.'},
+    {type:'quiz', title:'Style Lane Vocabulary', itemsFn:()=>shuffleArr([...buildMetalLeadPool(),...buildJazzHarmonyPool(),...buildFingerstylePool()]).slice(0,10)},
+    {type:'quiz', title:'Application Lab Set', itemsFn:()=>shuffleArr([...buildTriadCompingPool(),...buildScaleOverChordPool(),...buildModalVampPool()]).slice(0,10)},
+    {type:'boss', title:'Checkpoint Boss Test', count:14},
+  ];
+}
+
+function buildRecoveryPlan(){
+  return [
+    {type:'quiz', title:'Light Theory Review', itemsFn:()=>weakReviewItems(6)},
+    {type:'module', title:'Ear Trainer (light)', moduleId:'ear', note:'Just Notes and Intervals — 8 items, no pressure.'},
+    {type:'module', title:'Rhythm Lab (light)', moduleId:'rhythm', note:'One easy tap-along at a comfortable tempo.'},
+  ];
+}
+
+function buildCramPlan(){
+  return [
+    {day:1, title:'Day 1 — Foundations', segments:[
+      {type:'quiz', title:'Alphabet, Steps & Intervals', itemsFn:()=>pickFromPools(['alphabet','intervals'],12)},
+      {type:'module', title:'Fretboard Sprint', moduleId:'fretboard', note:'Natural notes first, then chromatic.'},
+      {type:'quiz', title:'Scales & Circle of Fifths', itemsFn:()=>pickFromPools(['scales','circleOfFifths','caged'],10)},
+    ]},
+    {day:2, title:'Day 2 — Ear, Rhythm & Technique', segments:[
+      {type:'module', title:'Ear Trainer', moduleId:'ear', note:'All modes at least once.'},
+      {type:'module', title:'Rhythm Lab', moduleId:'rhythm', note:'Subdivisions + syncopation.'},
+      {type:'module', title:'Technique Gym', moduleId:'technique', note:'Push two drills up in tempo.'},
+      {type:'quiz', title:'Diatonic Harmony', itemsFn:()=>pickFromPools(['diatonic','minorFamily'],10)},
+    ]},
+    {day:3, title:'Day 3 — Application & Boss', segments:[
+      {type:'quiz', title:'Application Lab', itemsFn:()=>shuffleArr([...buildTriadCompingPool(),...buildScaleOverChordPool()]).slice(0,10)},
+      {type:'quiz', title:'Style Lane Vocabulary', itemsFn:()=>shuffleArr([...buildMetalLeadPool(),...buildJazzHarmonyPool(),...buildFingerstylePool()]).slice(0,10)},
+      {type:'boss', title:'Cram Boss Test', count:16},
+    ]},
+  ];
+}
+
+function buildMultiDayPlan(totalDays){
+  const templates = [
+    {title:'Theory + Fretboard', segFn:()=>[
+      {type:'quiz', title:'Theory Set', itemsFn:()=>pickFromPools(['alphabet','intervals','scales','degrees'],10)},
+      {type:'module', title:'Fretboard Sprint', moduleId:'fretboard', note:'15-note session.'},
+    ]},
+    {title:'Ear + Rhythm', segFn:()=>[
+      {type:'module', title:'Ear Trainer', moduleId:'ear', note:'Notes, Intervals, Chords.'},
+      {type:'module', title:'Rhythm Lab', moduleId:'rhythm', note:'One tap-along pattern.'},
+    ]},
+    {title:'Technique + Style', segFn:()=>[
+      {type:'module', title:'Technique Gym', moduleId:'technique', note:'Push toward a new tempo ceiling.'},
+      {type:'quiz', title:'Style Lane Set', itemsFn:()=>shuffleArr([...buildMetalLeadPool(),...buildJazzHarmonyPool(),...buildFingerstylePool()]).slice(0,8)},
+    ]},
+    {title:'Application', segFn:()=>[
+      {type:'quiz', title:'Application Lab Set', itemsFn:()=>shuffleArr([...buildTriadCompingPool(),...buildScaleOverChordPool(),...buildModalVampPool()]).slice(0,10)},
+    ]},
+    {title:'Cumulative Review', segFn:()=>[
+      {type:'quiz', title:'Weak-Spot Review', itemsFn:()=>weakReviewItems(10)},
+    ]},
+  ];
+  const days = [];
+  for(let d=1; d<=totalDays; d++){
+    const isBoss = d%5===0;
+    const tpl = templates[(d-1)%templates.length];
+    const segments = tpl.segFn();
+    if(isBoss) segments.push({type:'boss', title:'Checkpoint Boss Test', count:12});
+    days.push({day:d, title:`Day ${d} — ${isBoss? 'Checkpoint: '+tpl.title : tpl.title}`, segments, boss:isBoss});
+  }
+  return days;
+}
+
+const DailyEngine = (function(){
+  function mount(container){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 08</span><h1 class="view-title">Daily Practice Engine</h1><p class="view-sub">Auto-generated, interleaved routines with weak-spot targeting and boss-test checkpoints.</p></div>'));
+
+    const weak = weakestTopics(3);
+    if(weak.length){
+      const card = el('div','card card-tight');
+      card.style.marginBottom='var(--space-5)';
+      card.innerHTML = `<span class="eyebrow">Weak-spot targeting active</span><div style="font-size:var(--text-sm)">Today's plan will prioritize: ${weak.map(w=>w.topic).join(', ')}</div>`;
+      wrap.appendChild(card);
+    }
+
+    const grid = el('div','grid grid-3');
+    const routineTiles = [
+      {name:'30-Minute Routine', desc:'Quick daily maintenance session.', action:()=>runPlan(container, '30-Minute Routine', buildDurationPlan(30))},
+      {name:'60-Minute Routine', desc:'Balanced full-module session.', action:()=>runPlan(container, '60-Minute Routine', buildDurationPlan(60))},
+      {name:'120-Minute Routine', desc:'Deep session ending in a boss test.', action:()=>runPlan(container, '120-Minute Routine', buildDurationPlan(120))},
+      {name:'Recovery Day', desc:'Lighter load — review only, no new material.', action:()=>runPlan(container, 'Recovery Day', buildRecoveryPlan())},
+      {name:'72-Hour Cram Mode', desc:'A focused 3-day plan before a deadline.', action:()=>runMultiDay(container, '72-Hour Cram Mode', buildCramPlan())},
+      {name:'14-Day Core Mode', desc:'Two-week structured curriculum.', action:()=>runMultiDay(container, '14-Day Core Mode', buildMultiDayPlan(14))},
+      {name:'30-Day Bootcamp Mode', desc:'The full accelerated bootcamp curriculum.', action:()=>runMultiDay(container, '30-Day Bootcamp Mode', buildMultiDayPlan(30))},
+      {name:'Boss Test', desc:'Cumulative test pulling your hardest items across every module.', action:()=>runBossOnly(container)},
+    ];
+    routineTiles.forEach(rt=>{
+      const tile = el('button','mod-tile');
+      tile.innerHTML = `<h3>${rt.name}</h3><p>${rt.desc}</p><div class="mod-meta"><span>Start →</span><span>&nbsp;</span></div>`;
+      tile.addEventListener('click', rt.action);
+      grid.appendChild(tile);
+    });
+    wrap.appendChild(grid);
+
+    if(Object.keys(State.checkpoints).length){
+      wrap.appendChild(el('hr','div'));
+      const cpWrap = el('div');
+      cpWrap.appendChild(el('span','eyebrow','Checkpoints unlocked'));
+      const badges = el('div');
+      CHECKPOINTS.forEach(cp=>{ if(State.checkpoints[cp.id]) badges.appendChild(el('span','rank-badge',cp.name+' ✓')); });
+      cpWrap.appendChild(badges);
+      wrap.appendChild(cpWrap);
+    }
+    container.appendChild(wrap);
+  }
+
+  function runPlan(container, title, segments){
+    let idx = 0;
+    const startXp = State.xp;
+    function showStep(){
+      container.innerHTML='';
+      const wrap = el('div','route-fade drill-shell');
+      const back = el('button','btn btn-ghost btn-sm','← Practice engine');
+      back.addEventListener('click', ()=>mount(container));
+      wrap.appendChild(back);
+      const topline = el('div','drill-topline'); topline.style.marginTop='var(--space-4)';
+      topline.innerHTML = `<span>${title} — Step ${idx+1} / ${segments.length}</span><span class="combo">${segments[idx].title}</span>`;
+      wrap.appendChild(topline);
+      const trk = el('div','progress-track'); trk.style.marginBottom='var(--space-5)';
+      const f = el('div','progress-fill'); f.style.width = Math.round(100*idx/segments.length)+'%'; trk.appendChild(f);
+      wrap.appendChild(trk);
+      const host = el('div'); host.id='plan-host';
+      wrap.appendChild(host);
+      container.appendChild(wrap);
+      runSegment(segments[idx], host, next);
+    }
+    function next(){ idx++; if(idx>=segments.length) finishPlan(); else showStep(); }
+    function finishPlan(){
+      container.innerHTML='';
+      const wrap = el('div','route-fade drill-shell');
+      const card = el('div','card'); card.style.textAlign='center';
+      card.innerHTML = `<span class="eyebrow">Routine complete</span><h2 class="view-title">${title}</h2><p class="view-sub">You earned <b>${State.xp-startXp} XP</b> this session.</p>`;
+      const actions = el('div','drill-actions');
+      const home = el('button','btn btn-primary','Back to Practice Engine');
+      home.addEventListener('click', ()=>mount(container));
+      actions.appendChild(home);
+      card.appendChild(actions);
+      wrap.appendChild(card);
+      container.appendChild(wrap);
+    }
+    showStep();
+  }
+
+  function runSegment(seg, host, onDone){
+    host.innerHTML='';
+    if(seg.type==='quiz'){
+      const items = seg.itemsFn();
+      runDrill({ container: host, queue: items, moduleId:'daily', title: seg.title,
+        onComplete:(summary)=>renderDrillSummary(host, summary, {title:seg.title, onDone}) });
+    } else if(seg.type==='boss'){
+      const items = buildBossQueue([{items:allQuizPoolsFlat()}], seg.count);
+      runDrill({ container: host, queue: items, moduleId:'boss', title: seg.title,
+        onComplete:(summary)=>{
+          const passed = summary.accuracy >= 0.7;
+          if(passed){
+            const nextCp = CHECKPOINTS.find(c=>!State.checkpoints[c.id]);
+            if(nextCp) State.checkpoints[nextCp.id] = true;
+          }
+          const box = el('div');
+          renderDrillSummary(box, summary, {title:seg.title, onDone});
+          host.innerHTML=''; host.appendChild(box);
+          const note = el('div','card card-tight');
+          note.style.marginTop='var(--space-4)';
+          note.innerHTML = passed? `<b>Checkpoint passed.</b> A new checkpoint badge has been unlocked.` : `<b>Checkpoint not yet passed</b> — review your weakest topics and try another boss test soon.`;
+          host.appendChild(note);
+        } });
+    } else if(seg.type==='module'){
+      const card = el('div','card');
+      card.innerHTML = `<span class="eyebrow">Live module segment</span><h3 class="view-title" style="font-size:var(--text-lg)">${seg.title}</h3><p class="view-sub" style="margin-bottom:var(--space-4)">${seg.note||''}</p>`;
+      const actions = el('div','drill-actions');
+      const openBtn = el('button','btn btn-primary','Open '+seg.title);
+      openBtn.addEventListener('click', ()=>Router.go(seg.moduleId));
+      const doneBtn = el('button','btn btn-ghost','Mark segment done & continue');
+      doneBtn.addEventListener('click', onDone);
+      actions.appendChild(openBtn); actions.appendChild(doneBtn);
+      card.appendChild(actions);
+      host.appendChild(card);
+    }
+  }
+
+  function runMultiDay(container, title, days){
+    container.innerHTML='';
+    const wrap = el('div','route-fade');
+    const back = el('button','btn btn-ghost btn-sm','← Practice engine');
+    back.addEventListener('click', ()=>mount(container));
+    wrap.appendChild(back);
+    wrap.appendChild(el('div','view-head', `<div><span class="eyebrow">Multi-day plan</span><h1 class="view-title">${title}</h1></div>`));
+    const list = el('div','checklist');
+    if(!State.dailyDaysDone[title]) State.dailyDaysDone[title] = new Set();
+    days.forEach(d=>{
+      const done = State.dailyDaysDone[title].has(d.day);
+      const row = el('div','check-row'+(done?' done':''));
+      const cbox = el('span','cbox', done?'✓':'');
+      row.appendChild(cbox);
+      const label = el('div'); label.style.flex='1';
+      label.innerHTML = `<b>${d.title}</b>${d.boss?' <span class="tag on">Boss test</span>':''}`;
+      row.appendChild(label);
+      const startBtn = el('button','btn btn-sm btn-ghost','Start');
+      startBtn.addEventListener('click', ()=>{
+        runPlan(container, d.title, d.segments);
+        State.dailyDaysDone[title].add(d.day);
+      });
+      row.appendChild(startBtn);
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+    container.appendChild(wrap);
+  }
+
+  function runBossOnly(container){
+    container.innerHTML='';
+    const wrap = el('div','route-fade drill-shell');
+    const back = el('button','btn btn-ghost btn-sm','← Practice engine');
+    back.addEventListener('click', ()=>mount(container));
+    wrap.appendChild(back);
+    wrap.appendChild(el('div','view-head', `<div><span class="eyebrow">Cumulative review</span><h1 class="view-title">Boss Test</h1></div>`));
+    const host = el('div'); host.id='boss-host';
+    wrap.appendChild(host);
+    container.appendChild(wrap);
+    runSegment({type:'boss', title:'Boss Test', count:16}, host, ()=>mount(container));
+  }
+
+  return { mount };
+})();
+// =====================================================================
+// ROUTER + NAVBAR + HOME/DASHBOARD VIEW
+// =====================================================================
+const NAV_ICONS = {
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11.5 12 4l9 7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9h13v-9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  theory: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v13H4z" stroke-linejoin="round"/><path d="M4 9h16M9 9v9" /></svg>',
+  fretboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16M9 4v16M14 4v16M19 4v16" /><path d="M2 8h20M2 13h20M2 18h20" stroke-width="1.2"/></svg>',
+  ear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a6 6 0 0 0-6 6v5a3 3 0 0 0 3 3" stroke-linecap="round"/><path d="M12 3a6 6 0 0 1 6 6v6a3 3 0 0 1-3 3 2 2 0 0 1-2-2v-3" stroke-linecap="round"/></svg>',
+  rhythm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 18 10 6l4 8 2-4 4 8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  technique: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3v18M18 3v18" stroke-linecap="round"/><path d="M6 8h12M6 16h12"/></svg>',
+  stylelanes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h9" stroke-linecap="round"/></svg>',
+  applab: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3v6L4 19a1.5 1.5 0 0 0 1.3 2.3h13.4A1.5 1.5 0 0 0 20 19L15 9V3" stroke-linejoin="round"/><path d="M9 3h6"/></svg>',
+  daily: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+};
+const NAV_ITEMS = [
+  {id:'home', label:'Home'},
+  {id:'theory', label:'Theory'},
+  {id:'fretboard', label:'Fretboard'},
+  {id:'ear', label:'Ear'},
+  {id:'rhythm', label:'Rhythm'},
+  {id:'technique', label:'Technique'},
+  {id:'stylelanes', label:'Style Lanes'},
+  {id:'applab', label:'Application'},
+  {id:'daily', label:'Daily Engine'},
+];
+
+const Router = (function(){
+  let current = 'home';
+  const VIEWS = {
+    home: mountHome,
+    theory: (c)=>runTheoryHub(c),
+    fretboard: (c)=>FretboardSprint.mount(c),
+    ear: (c)=>EarTrainer.mount(c),
+    rhythm: (c)=>RhythmLab.mount(c),
+    technique: (c)=>TechniqueGym.mount(c),
+    stylelanes: (c)=>StyleLanes.mount(c),
+    applab: (c)=>ApplicationLab.mount(c),
+    daily: (c)=>DailyEngine.mount(c),
+  };
+  function go(viewId){
+    if(!VIEWS[viewId]) viewId='home';
+    current = viewId;
+    renderNav();
+    const main = document.getElementById('main');
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+    VIEWS[viewId](main);
+    main.focus({preventScroll:true});
+  }
+  function renderNav(){
+    const nav = document.getElementById('navbar');
+    nav.innerHTML = '';
+    NAV_ITEMS.forEach(item=>{
+      const btn = el('button','nav-btn'+(current===item.id?' active':''));
+      btn.innerHTML = `${NAV_ICONS[item.id]}<span>${item.label}</span>`;
+      btn.setAttribute('aria-current', current===item.id ? 'page':'false');
+      btn.addEventListener('click', ()=>go(item.id));
+      nav.appendChild(btn);
+    });
+  }
+  return { go, renderNav, get current(){ return current; } };
+})();
+
+// ---- Theory Accelerator hub (thin wrapper reusing the drill engine + theory pools) ----
+const THEORY_TOPICS = [
+  {key:'alphabet', name:'Note Alphabet & Chromatic Steps', desc:'Naturals, sharps/flats, enharmonic spelling.'},
+  {key:'intervals', name:'Intervals', desc:'Name and recognize every interval within an octave.'},
+  {key:'scales', name:'Scale Spelling', desc:'Major, minor, modes, pentatonic, blues, exotic scales.'},
+  {key:'degrees', name:'Scale Degrees', desc:'Tonic through leading tone, functional names.'},
+  {key:'diatonic', name:'Diatonic Harmony', desc:'Roman numerals and chord qualities in major keys.'},
+  {key:'minorFamily', name:'Minor Key Harmony', desc:'Natural and harmonic minor Roman numeral analysis.'},
+  {key:'triads', name:'Triads', desc:'Major, minor, diminished, augmented — spelling & quality ID.'},
+  {key:'sevenths', name:'7th Chords & Extensions', desc:'Maj7, dom7, m7, m7b5, dim7, 9/11/13 concepts.'},
+  {key:'caged', name:'CAGED System', desc:'Shape order and how it maps around the neck.'},
+  {key:'circleOfFifths', name:'Circle of Fifths', desc:'Key signatures, relative minors, sharp/flat order.'},
+  {key:'modes', name:'Modes', desc:'Ionian through Locrian — character and formula.'},
+];
+function runTheoryHub(container){
+  container.innerHTML='';
+  const wrap = el('div','route-fade');
+  wrap.appendChild(el('div','view-head','<div><span class="eyebrow">Module 01</span><h1 class="view-title">Theory Accelerator</h1><p class="view-sub">Retrieval-first drills across every core theory topic. Interleaved and spaced for long-term retention.</p></div>'));
+  const grid = el('div','grid grid-3');
+  const pools = getTheoryPools();
+  THEORY_TOPICS.forEach(t=>{
+    const tile = el('button','mod-tile');
+    const count = pools[t.key] ? pools[t.key].items.length : 0;
+    tile.innerHTML = `<h3>${t.name}</h3><p>${t.desc}</p><div class="mod-meta"><span>${count} items</span><span>→</span></div>`;
+    tile.addEventListener('click', ()=>launchTheory(container, t));
+    grid.appendChild(tile);
+  });
+  wrap.appendChild(grid);
+  const mixTile = el('button','btn btn-ghost');
+  mixTile.style.marginTop='var(--space-5)';
+  mixTile.textContent = 'Run a full interleaved mix (all topics)';
+  mixTile.addEventListener('click', ()=>launchTheory(container, {name:'Interleaved Mix', all:true}));
+  wrap.appendChild(mixTile);
+  container.appendChild(wrap);
+}
+function launchTheory(container, topic){
+  container.innerHTML='';
+  const wrap = el('div','route-fade');
+  const back = el('button','btn btn-ghost btn-sm','← Theory Accelerator');
+  back.addEventListener('click', ()=>runTheoryHub(container));
+  wrap.appendChild(back);
+  wrap.appendChild(el('div','view-head', `<div><span class="eyebrow">Theory Accelerator</span><h1 class="view-title">${topic.name}</h1></div>`));
+  const host = el('div'); host.id='theory-host';
+  wrap.appendChild(host);
+  container.appendChild(wrap);
+  const pools = getTheoryPools();
+  const items = topic.all
+    ? buildInterleavedQueue(Object.values(pools), 16)
+    : buildInterleavedQueue([pools[topic.key]], 12);
+  runDrill({ container: host, queue: items, moduleId:'theory', title: topic.name,
+    onComplete:(summary)=>renderDrillSummary(host, summary, {title:topic.name, onRetry:()=>launchTheory(container, topic), onDone:()=>runTheoryHub(container)}) });
+}
+
+// ---- Home / Dashboard ----
+function mountHome(container){
+  container.innerHTML='';
+  const wrap = el('div','route-fade');
+  wrap.appendChild(el('div','view-head', `<div><span class="eyebrow">Session dashboard</span><h1 class="view-title">Welcome back, ${masteryRank()}</h1><p class="view-sub">Pick up where you left off, or let the Daily Practice Engine build today's session for you.</p></div>`));
+
+  const stats = el('div','grid grid-4');
+  stats.style.marginBottom = 'var(--space-6)';
+  const cells = [
+    ['XP', State.xp],
+    ['Accuracy', fmtPct(overallAccuracy())],
+    ['Retention', retentionScore()+'%'],
+    ['Best combo', State.bestCombo],
+  ];
+  cells.forEach(([lbl,num])=>{
+    const b = el('div','stat-block');
+    b.innerHTML = `<div class="num">${num}</div><div class="lbl">${lbl}</div>`;
+    stats.appendChild(b);
+  });
+  wrap.appendChild(stats);
+
+  const cols = el('div','grid grid-2');
+  const weakCard = el('div','card');
+  const weak = weakestTopics(6);
+  weakCard.innerHTML = `<span class="eyebrow">Weakest topics</span>`;
+  if(weak.length===0){
+    weakCard.appendChild(el('p','view-sub','No weak spots yet — start practicing to build your profile.'));
+  } else {
+    weak.forEach(w=>{
+      const row = el('div','weak-row');
+      row.innerHTML = `<span>${w.topic}</span><span class="tag on">${fmtPct(1-w.missRate)} correct</span>`;
+      weakCard.appendChild(row);
+    });
+  }
+  cols.appendChild(weakCard);
+
+  const dailyCard = el('div','card');
+  dailyCard.innerHTML = `<span class="eyebrow">Daily Practice Engine</span><p class="view-sub" style="margin-bottom:var(--space-4)">Auto-generated routines, cram mode, and long-term curricula — all built from your live weak-spot data.</p>`;
+  const startBtn = el('button','btn btn-primary','Open Daily Practice Engine');
+  startBtn.addEventListener('click', ()=>Router.go('daily'));
+  dailyCard.appendChild(startBtn);
+  cols.appendChild(dailyCard);
+  wrap.appendChild(cols);
+
+  wrap.appendChild(el('div','view-head', '<div style="margin-top:var(--space-6)"><h2 class="view-title" style="font-size:var(--text-lg)">All modules</h2></div>'));
+  const grid = el('div','grid grid-3');
+  const modTiles = [
+    {id:'theory', name:'Theory Accelerator', desc:'Fast MC/typed drills across all core theory.'},
+    {id:'fretboard', name:'Fretboard Sprint', desc:'Name-it / find-it note ID across the whole neck.'},
+    {id:'ear', name:'Ear Trainer', desc:'Notes, intervals, chords, progressions, singing, dictation.'},
+    {id:'rhythm', name:'Rhythm Lab', desc:'Subdivision, strumming, syncopation, odd meters, tap-along.'},
+    {id:'technique', name:'Technique Gym', desc:'Metronome-gated tempo ratchets for core techniques.'},
+    {id:'stylelanes', name:'Style Lanes', desc:'Metal Lead, Jazz Harmony, Fingerstyle / Chord Melody.'},
+    {id:'applab', name:'Application Lab', desc:'Progressions, modal vamps, comping, scale-over-chord.'},
+    {id:'daily', name:'Daily Practice Engine', desc:'Routines, cram mode, curricula, boss tests.'},
+  ];
+  modTiles.forEach(m=>{
+    const tile = el('button','mod-tile');
+    tile.innerHTML = `<h3>${m.name}</h3><p>${m.desc}</p><div class="mod-meta"><span>Open</span><span>→</span></div>`;
+    tile.addEventListener('click', ()=>Router.go(m.id));
+    grid.appendChild(tile);
+  });
+  wrap.appendChild(grid);
+  container.appendChild(wrap);
+}
+// =====================================================================
+// APP BOOTSTRAP — theme toggle, keyboard shortcuts, initial mount
+// =====================================================================
+(function(){
+  const SUN_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.6 4.6l1.9 1.9M17.5 17.5l1.9 1.9M2.5 12h2.6M18.9 12h2.6M4.6 19.4l1.9-1.9M17.5 6.5l1.9-1.9" stroke-linecap="round"/></svg>';
+  const MOON_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" stroke-linejoin="round"/></svg>';
+
+  function applyTheme(theme){
+    State.theme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    const btn = document.getElementById('theme-toggle');
+    if(btn){
+      btn.innerHTML = theme==='light' ? MOON_ICON : SUN_ICON;
+      btn.setAttribute('aria-label', theme==='light' ? 'Switch to dark mode' : 'Switch to light mode');
+    }
+  }
+
+  function toggleTheme(){
+    applyTheme(State.theme==='light' ? 'dark' : 'light');
+  }
+
+  function showHelp(){
+    const root = document.getElementById('overlay-root');
+    root.innerHTML='';
+    const overlay = el('div','overlay');
+    overlay.addEventListener('click', (e)=>{ if(e.target===overlay) root.innerHTML=''; });
+    const sheet = el('div','sheet');
+    sheet.innerHTML = `
+      <div class="sheet-head"><h2 class="view-title" style="font-size:var(--text-lg)">How Guitar Mastery Bootcamp works</h2></div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-4);font-size:var(--text-sm);line-height:1.6">
+        <p><b>Retrieval first.</b> Every drill asks you to answer before revealing anything — that's what builds real recall.</p>
+        <p><b>Spaced repetition.</b> Missed items resurface sooner; mastered items resurface later. Progress is tracked per item across an in-session virtual clock.</p>
+        <p><b>Interleaving.</b> Theory, fretboard, ear, rhythm, and technique are deliberately mixed rather than blocked, which research shows improves long-term retention.</p>
+        <p><b>Tempo gating.</b> In Technique Gym, BPM only increases after you hit a clean-rep streak at the current tempo.</p>
+        <p><b>Daily Practice Engine.</b> Auto-builds a session from your weakest topics — from a 30-minute routine to a full 30-day bootcamp curriculum, with boss tests unlocking checkpoints.</p>
+        <p style="color:var(--muted)">Keyboard: number keys select multiple-choice answers, Enter confirms/advances a typed answer or moves to the next item.</p>
+      </div>
+      <div class="drill-actions" style="margin-top:var(--space-5)"><button class="btn btn-primary" id="help-close">Got it</button></div>
+    `;
+    overlay.appendChild(sheet);
+    root.appendChild(overlay);
+    document.getElementById('help-close').addEventListener('click', ()=>{ root.innerHTML=''; });
+  }
+
+  function boot(){
+    applyTheme('light');
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('btn-help').addEventListener('click', showHelp);
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='?' ) showHelp();
+      if(e.key==='Escape'){ document.getElementById('overlay-root').innerHTML=''; }
+    });
+    getTheoryPools(); // warm the theory pool cache
+    Router.go('home');
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://perplexity.localhost","http://localhost:1420","http://127.0.0.1:1420","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>
